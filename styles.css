@@ -470,6 +470,175 @@ select {
   color: var(--green);
 }
 
+.technology-main {
+  width: min(100%, 72rem);
+}
+
+.technology-hero .lead {
+  max-width: 58rem;
+}
+
+.technology-intro article {
+  min-height: 17rem;
+}
+
+.technology-capabilities {
+  display: grid;
+  gap: 1rem;
+}
+
+.technology-card,
+.principle-card,
+.footer-cta {
+  border: 1px solid rgba(126, 255, 0, 0.14);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(126, 255, 0, 0.055), rgba(5, 12, 9, 0.72)),
+    rgba(5, 12, 9, 0.66);
+  box-shadow: 0 1.1rem 3rem rgba(0, 0, 0, 0.24);
+}
+
+.technology-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(1rem, 2.6vw, 1.5rem);
+  align-items: start;
+  padding: clamp(1rem, 2.6vw, 1.45rem);
+}
+
+.technology-card h2,
+.principle-card h3,
+.footer-cta h2 {
+  margin: 0;
+  color: var(--text);
+  font-weight: 900;
+  line-height: 1.12;
+}
+
+.technology-card h2 {
+  font-size: clamp(1.45rem, 3vw, 2.25rem);
+}
+
+.technology-card p,
+.principle-card p {
+  margin: 0.75rem 0 0;
+  color: rgba(174, 187, 178, 0.82);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.tech-icon {
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  place-items: center;
+  border: 1px solid rgba(126, 255, 0, 0.22);
+  border-radius: 8px;
+  color: var(--green);
+  background: rgba(126, 255, 0, 0.055);
+  box-shadow: 0 0 1.6rem rgba(126, 255, 0, 0.08);
+}
+
+.tech-icon.small {
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
+.tech-icon svg {
+  width: 72%;
+  height: 72%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.technology-principle-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.principle-card {
+  display: grid;
+  align-content: start;
+  gap: 0.85rem;
+  min-height: 15rem;
+  padding: 1rem;
+}
+
+.principle-card h3 {
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+}
+
+.technology-timeline {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0;
+  padding: 0;
+  margin: clamp(1.4rem, 3vw, 2rem) 0 0;
+  list-style: none;
+}
+
+.technology-timeline li {
+  position: relative;
+  display: grid;
+  min-height: 8rem;
+  place-items: center;
+  padding: 0 0.7rem;
+}
+
+.technology-timeline li::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  content: "";
+  background: rgba(126, 255, 0, 0.24);
+}
+
+.technology-timeline li:not(:last-child)::after {
+  position: absolute;
+  top: calc(50% - 0.32rem);
+  right: -0.32rem;
+  z-index: 1;
+  width: 0.64rem;
+  height: 0.64rem;
+  border-top: 1px solid rgba(126, 255, 0, 0.72);
+  border-right: 1px solid rgba(126, 255, 0, 0.72);
+  content: "";
+  transform: rotate(45deg);
+}
+
+.technology-timeline span {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  min-height: 4.3rem;
+  align-items: center;
+  padding: 0.8rem;
+  border: 1px solid rgba(126, 255, 0, 0.18);
+  border-radius: 8px;
+  background: #010302;
+  color: rgba(247, 255, 249, 0.9);
+  font-size: 0.76rem;
+  font-weight: 900;
+  line-height: 1.35;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.footer-cta {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+}
+
+.footer-cta h2 {
+  max-width: 48rem;
+  font-size: clamp(1.65rem, 4vw, 3.2rem);
+}
+
 .site-footer {
   display: grid;
   grid-template-columns: 1.2fr 1.4fr auto;
@@ -948,6 +1117,7 @@ select {
     right: 1rem;
     bottom: 1rem;
     left: 1rem;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 0.45rem 0.75rem;
   }
@@ -981,12 +1151,53 @@ select {
   .card-grid,
   .journal-grid,
   .split-section,
-  .principle-list {
+  .principle-list,
+  .technology-principle-grid {
     grid-template-columns: 1fr;
   }
 
   .product-card {
     min-height: 12rem;
+  }
+
+  .technology-card {
+    grid-template-columns: 1fr;
+  }
+
+  .technology-intro article,
+  .principle-card {
+    min-height: auto;
+  }
+
+  .technology-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .technology-timeline li {
+    min-height: 5.5rem;
+    padding: 0.4rem 0 1.6rem;
+  }
+
+  .technology-timeline li::before {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  .technology-timeline li:not(:last-child)::after {
+    top: auto;
+    right: auto;
+    bottom: 0.32rem;
+    left: calc(50% - 0.32rem);
+    transform: rotate(135deg);
+  }
+
+  .technology-timeline span {
+    width: min(100%, 24rem);
+    margin: 0 auto;
   }
 
   .site-footer {
