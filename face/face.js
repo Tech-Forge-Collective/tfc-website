@@ -194,7 +194,7 @@ async function bootFaceApp() {
 
 window.addEventListener("message", (event) => {
   const payload = event.data || {};
-  if (payload.type !== "blacksmith-face-state") return;
+  if (payload.type !== "projectile-face-state") return;
   if (event.source !== window.parent && event.source !== window.opener) return;
   applyState(payload);
 });

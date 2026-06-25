@@ -1,6 +1,6 @@
 import * as THREE from "../../vendor/three.module.js";
 
-const SVG_URL = "./assets/tfc_ai_robot_face_rigged.svg";
+const SVG_URL = "./assets/robot-face-rigged.svg";
 
 export class WireRobotHeadSkin {
   constructor(scene, context = {}) {
@@ -38,9 +38,9 @@ export class WireRobotHeadSkin {
     this.params = params || {};
     const wire = this.params.wireframeColor || "#00ff66";
     const eye = this.params.eyeColor || "#ffffff";
-    this.root.style.setProperty("--t1-green", wire);
-    this.root.style.setProperty("--t1-green-dim", wire);
-    this.root.style.setProperty("--t1-white", eye);
+    this.root.style.setProperty("--projectile-green", wire);
+    this.root.style.setProperty("--projectile-green-dim", wire);
+    this.root.style.setProperty("--projectile-white", eye);
     this.root.style.opacity = String(Math.min(1, 0.5 + Number(this.params.wireframeIntensity || 1.45) / 3));
     if (this.svg) {
       this.svg.style.filter = `drop-shadow(0 0 ${4 + Number(this.params.wireframeIntensity || 1.45) * 4}px ${wire})`;

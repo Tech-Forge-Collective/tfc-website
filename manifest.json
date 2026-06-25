@@ -1,7 +1,7 @@
 {
-  "name": "ProjecTile | Tech Forge Collective",
-  "short_name": "ProjecTile",
-  "description": "ProjecTile is an upcoming engineering intelligence workspace by Tech Forge Collective.",
+  "name": "Tech Forge Collective",
+  "short_name": "TFC",
+  "description": "Tech Forge Collective builds engineering intelligence, robotics, industrial AI, and automation technologies for complex technical environments.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

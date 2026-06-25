@@ -43,7 +43,7 @@ function sendFaceMode(mode) {
   try {
     faceOrb.contentWindow.postMessage(
       {
-        type: "blacksmith-face-state",
+        type: "projectile-face-state",
         state: mode || "idle",
       },
       window.location.origin
