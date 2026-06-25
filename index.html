@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ProjecTile | Tech Forge Collective</title>
+    <meta
+      name="description"
+      content="ProjecTile is an upcoming engineering intelligence workspace by Tech Forge Collective."
+    >
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="ProjecTile | Tech Forge Collective">
+    <meta
+      property="og:description"
+      content="ProjecTile is an upcoming engineering intelligence workspace by Tech Forge Collective."
+    >
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./assets/projectile-mark.svg">
+    <meta name="theme-color" content="#020403">
+    <link rel="icon" href="./assets/projectile-mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="teaser-shell" aria-labelledby="page-title">
+      <header class="brand" aria-label="Tech Forge Collective">
+        <span class="brand-mark">
+          <img src="./assets/tfc-logo-simple.png" alt="" width="128" height="128">
+        </span>
+        <span class="brand-name">
+          <strong>Tech Forge Collective</strong>
+          <small>Robotics. Software. AI.</small>
+        </span>
+      </header>
+
+      <section class="hero" aria-describedby="tagline">
+        <div class="hero-brand" aria-label="ProjecTile">
+          <div class="projectile-logo" aria-hidden="true">
+            <svg viewBox="0 0 128 128" role="img" focusable="false">
+              <path class="projectile-logo-outline" d="M64 11 108 36.5v55L64 117 20 91.5v-55L64 11Z" />
+              <path class="projectile-logo-main" d="M64 24 88 89 64 71 40 89 64 24Z" />
+              <path class="projectile-logo-detail" d="M64 79 73 92 64 106 55 92 64 79Z" />
+            </svg>
+          </div>
+          <h1 class="projectile-wordmark">
+            <span class="word-white">Projec</span><span class="word-green">Tile</span>
+          </h1>
+        </div>
+
+        <div class="orb-stage orb-mode-idle" data-orb-mode="idle">
+          <button
+            class="orb-button"
+            type="button"
+            aria-label="Explore ProjecTile teaser areas"
+            aria-describedby="orb-instructions"
+            aria-expanded="false"
+          >
+            <span class="particle-field" aria-hidden="true"></span>
+            <span class="orb-aura" aria-hidden="true"></span>
+            <iframe
+              class="face-orb"
+              id="face-orb"
+              src="/face?embed=1"
+              title="ProjecTile orb"
+              aria-hidden="true"
+              allowtransparency="true"
+              loading="eager"
+            ></iframe>
+            <span class="orb-fallback" aria-hidden="true">
+              <span class="orb-fallback-core"></span>
+            </span>
+            <span class="orb-hover-layer" aria-hidden="true"></span>
+          </button>
+          <span class="orb-connector" aria-hidden="true"></span>
+
+          <p class="sr-only" id="orb-instructions">
+            Hover an orb quadrant to reveal a ProjecTile teaser card. On touch devices, tap the orb to cycle cards.
+          </p>
+
+          <aside class="quadrant-card quadrant-card-top-left" data-sector="thinking" role="status" aria-live="polite" hidden>
+            <p class="card-kicker">Thinking</p>
+            <h2>Engineering Intelligence</h2>
+            <p>
+              ProjecTile is being built to help structure complex engineering work,
+              connecting requirements, documents, calculations, reports, and decisions
+              in one focused workspace.
+            </p>
+            <footer>From scattered files to project intelligence.</footer>
+          </aside>
+
+          <aside class="quadrant-card quadrant-card-top-right" data-sector="speaking" role="status" aria-live="polite" hidden>
+            <p class="card-kicker">Speaking</p>
+            <h2>Specialist Collaboration</h2>
+            <p>
+              Future engineering specialists will support technical conversations
+              across electrical, automation, mechanical, robotics, software, safety,
+              and project domains.
+            </p>
+            <footer>Ask better questions. Build better answers.</footer>
+          </aside>
+
+          <aside class="quadrant-card quadrant-card-bottom-right" data-sector="warning" role="status" aria-live="polite" hidden>
+            <p class="card-kicker">Warning</p>
+            <h2>Risk &amp; Decision Support</h2>
+            <p>
+              Designed to help surface assumptions, missing information, risks,
+              safety concerns, and decision points before they become costly project
+              problems.
+            </p>
+            <footer>Clarity before complexity.</footer>
+          </aside>
+
+          <aside class="quadrant-card quadrant-card-bottom-left" data-sector="listening" role="status" aria-live="polite" hidden>
+            <p class="card-kicker">Listening</p>
+            <h2>Knowledge Connection</h2>
+            <p>
+              ProjecTile will connect project files, engineering references, lessons
+              learned, and team knowledge into a searchable intelligence layer.
+            </p>
+            <footer>Your knowledge should not disappear between projects.</footer>
+          </aside>
+        </div>
+
+        <div class="hero-copy hero-copy-bottom">
+          <p class="coming-soon" id="page-title">Coming soon</p>
+          <p id="tagline">Engineering intelligence, forged for complex projects.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
