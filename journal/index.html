@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Engineering Journal | Tech Forge Collective</title>
-    <meta name="description" content="Notes from building engineering intelligence, robotics, industrial AI, and automation systems at Tech Forge Collective.">
+    <meta name="description" content="Engineering research, design decisions, and technical insights from the development of ProjecTile and other engineering technologies.">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="author" content="Tech Forge Collective">
     <meta name="application-name" content="Tech Forge Collective">
     <link rel="canonical" href="https://techforgecollective.com/journal/">
     <meta property="og:title" content="Engineering Journal | Tech Forge Collective">
-    <meta property="og:description" content="Notes from building engineering intelligence, robotics, industrial AI, and automation systems at Tech Forge Collective.">
+    <meta property="og:description" content="Engineering research, design decisions, and technical insights from the development of ProjecTile and other engineering technologies.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://techforgecollective.com/journal/">
     <meta property="og:site_name" content="Tech Forge Collective">
@@ -19,13 +19,13 @@
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Tech Forge Collective and ProjecTile">
+    <meta property="og:image:alt" content="Tech Forge Collective Engineering Journal">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Engineering Journal | Tech Forge Collective">
-    <meta name="twitter:description" content="Notes from building engineering intelligence, robotics, industrial AI, and automation systems at Tech Forge Collective.">
+    <meta name="twitter:description" content="Engineering research, design decisions, and technical insights from the development of ProjecTile and other engineering technologies.">
     <meta name="twitter:image" content="https://techforgecollective.com/assets/og-projectile.png">
-    <meta name="twitter:image:alt" content="Tech Forge Collective and ProjecTile">
+    <meta name="twitter:image:alt" content="Tech Forge Collective Engineering Journal">
     <meta name="theme-color" content="#020403">
     <link rel="icon" href="/assets/projectile-mark.svg" type="image/svg+xml">
     <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32" type="image/png">
@@ -61,41 +61,75 @@
                         }
                 },
                 {
-                        "@type": "WebPage",
+                        "@type": [
+                                "CollectionPage",
+                                "Blog"
+                        ],
                         "@id": "https://techforgecollective.com/journal/#webpage",
                         "url": "https://techforgecollective.com/journal/",
                         "name": "Engineering Journal | Tech Forge Collective",
-                        "description": "Notes from building engineering intelligence, robotics, industrial AI, and automation systems at Tech Forge Collective.",
+                        "description": "Engineering research, design decisions, and technical insights from the development of ProjecTile and other engineering technologies.",
                         "isPartOf": {
                                 "@id": "https://techforgecollective.com/#website"
                         },
-                        "about": {
+                        "publisher": {
                                 "@id": "https://techforgecollective.com/#organization"
                         }
                 },
                 {
-                        "@type": [
-                                "SoftwareApplication",
-                                "Product"
-                        ],
-                        "@id": "https://techforgecollective.com/projectile/#projectile",
-                        "name": "ProjecTile",
-                        "url": "https://techforgecollective.com/projectile/",
-                        "description": "ProjecTile is an upcoming engineering intelligence workspace by Tech Forge Collective.",
-                        "applicationCategory": "BusinessApplication",
-                        "applicationSubCategory": "Engineering intelligence workspace",
-                        "operatingSystem": "Web",
-                        "brand": {
-                                "@id": "https://techforgecollective.com/#organization"
-                        },
-                        "publisher": {
-                                "@id": "https://techforgecollective.com/#organization"
-                        },
-                        "offers": {
-                                "@type": "Offer",
-                                "availability": "https://schema.org/PreOrder",
-                                "url": "https://techforgecollective.com/projectile/"
-                        }
+                        "@type": "ItemList",
+                        "@id": "https://techforgecollective.com/journal/#upcoming-articles",
+                        "name": "Upcoming Engineering Journal articles",
+                        "itemListElement": [
+                                {
+                                        "@type": "ListItem",
+                                        "position": 1,
+                                        "name": "Building an Engineering Intelligence Platform",
+                                        "url": "https://techforgecollective.com/journal/articles/building-an-engineering-intelligence-platform/"
+                                },
+                                {
+                                        "@type": "ListItem",
+                                        "position": 2,
+                                        "name": "Knowledge Should Outlive Projects",
+                                        "url": "https://techforgecollective.com/journal/articles/knowledge-should-outlive-projects/"
+                                },
+                                {
+                                        "@type": "ListItem",
+                                        "position": 3,
+                                        "name": "Engineering Memory vs Documentation",
+                                        "url": "https://techforgecollective.com/journal/articles/engineering-memory-vs-documentation/"
+                                },
+                                {
+                                        "@type": "ListItem",
+                                        "position": 4,
+                                        "name": "Why Engineering Specialists Need Shared Context",
+                                        "url": "https://techforgecollective.com/journal/articles/why-engineering-specialists-need-shared-context/"
+                                },
+                                {
+                                        "@type": "ListItem",
+                                        "position": 5,
+                                        "name": "Human Oversight in Engineering AI",
+                                        "url": "https://techforgecollective.com/journal/articles/human-oversight-in-engineering-ai/"
+                                },
+                                {
+                                        "@type": "ListItem",
+                                        "position": 6,
+                                        "name": "Connecting Engineering Knowledge",
+                                        "url": "https://techforgecollective.com/journal/articles/connecting-engineering-knowledge/"
+                                },
+                                {
+                                        "@type": "ListItem",
+                                        "position": 7,
+                                        "name": "Robotics Beyond Automation",
+                                        "url": "https://techforgecollective.com/journal/articles/robotics-beyond-automation/"
+                                },
+                                {
+                                        "@type": "ListItem",
+                                        "position": 8,
+                                        "name": "Building Practical AI for Engineers",
+                                        "url": "https://techforgecollective.com/journal/articles/building-practical-ai-for-engineers/"
+                                }
+                        ]
                 }
         ]
 }
@@ -121,28 +155,130 @@
         <a href="/journal/" aria-current="page">Journal</a>
         <a href="/contact/">Contact</a>
     </nav>
-    <main class="site-main content-main" aria-labelledby="page-title">
-      <section class="page-hero compact">
+    <main class="site-main content-main journal-main" aria-labelledby="page-title">
+      <section class="page-hero compact journal-hero">
         <p class="eyebrow">Journal</p>
         <h1 id="page-title">Engineering Journal</h1>
-        <p class="lead">Notes from building engineering intelligence, robotics, industrial AI, and automation systems.</p>
+        <p class="hero-tagline">Research, experiments, design decisions, and lessons learned while building engineering intelligence.</p>
+        <p class="lead">The Engineering Journal shares selected technical insights from the development of ProjecTile and other engineering technologies at Tech Forge Collective.</p>
       </section>
-      <section class="card-grid journal-grid" aria-label="Upcoming journal notes">
-        <article class="product-card">
-          <span class="status-badge">Draft coming soon</span>
-          <h2>Engineering intelligence</h2>
-          <p>Notes on tools that help technical teams reason through complex projects.</p>
+
+      <section class="page-section featured-journal" aria-labelledby="featured-title">
+        <article class="featured-article-card">
+          <div>
+            <p class="eyebrow">Featured Article</p>
+            <h2 id="featured-title">Why Engineering AI Needs More Than Chat</h2>
+            <p>Engineering work depends on context, traceability, calculations, documentation, and long-term knowledge. Conversation alone is not enough.</p>
+          </div>
+          <span class="status-badge">Coming Soon</span>
         </article>
-        <article class="product-card">
-          <span class="status-badge">Draft coming soon</span>
-          <h2>Robotics systems</h2>
-          <p>Field notes from autonomy, inspection, and technical environment systems.</p>
-        </article>
-        <article class="product-card">
-          <span class="status-badge">Draft coming soon</span>
-          <h2>Industrial AI</h2>
-          <p>Applied AI thinking for engineering, automation, analytics, and operations.</p>
-        </article>
+      </section>
+
+      <section class="page-section journal-categories" aria-labelledby="categories-title">
+        <div class="section-heading">
+          <p class="eyebrow">Categories</p>
+          <h2 id="categories-title">Browse by engineering area.</h2>
+        </div>
+        <div class="filter-chip-row" role="list" aria-label="Journal categories">
+          <button class="filter-chip is-active" type="button" data-category="all">All</button>
+          <button class="filter-chip" type="button" data-category="Engineering Intelligence">Engineering Intelligence</button>
+          <button class="filter-chip" type="button" data-category="Knowledge Systems">Knowledge Systems</button>
+          <button class="filter-chip" type="button" data-category="Artificial Intelligence">Artificial Intelligence</button>
+          <button class="filter-chip" type="button" data-category="Automation">Automation</button>
+          <button class="filter-chip" type="button" data-category="Robotics">Robotics</button>
+          <button class="filter-chip" type="button" data-category="Software Engineering">Software Engineering</button>
+          <button class="filter-chip" type="button" data-category="Industrial Engineering">Industrial Engineering</button>
+          <button class="filter-chip" type="button" data-category="Research Notes">Research Notes</button>
+        </div>
+      </section>
+
+      <section class="page-section" aria-labelledby="upcoming-title">
+        <div class="section-heading">
+          <p class="eyebrow">Upcoming Articles</p>
+          <h2 id="upcoming-title">Drafts in preparation.</h2>
+        </div>
+        <div class="journal-article-grid">
+          <article class="journal-card" data-category="Engineering Intelligence">
+            <div class="journal-card-meta">
+              <span class="status-badge">Draft</span>
+              <span>5-8 min</span>
+            </div>
+            <h3>Building an Engineering Intelligence Platform</h3>
+            <p>A technical framing of engineering intelligence as a workspace for project context, knowledge, reports, and decisions.</p>
+          </article>
+          <article class="journal-card" data-category="Knowledge Systems">
+            <div class="journal-card-meta">
+              <span class="status-badge">Draft</span>
+              <span>5-8 min</span>
+            </div>
+            <h3>Knowledge Should Outlive Projects</h3>
+            <p>Why project knowledge needs to remain available after handover, delivery, and team changes.</p>
+          </article>
+          <article class="journal-card" data-category="Knowledge Systems">
+            <div class="journal-card-meta">
+              <span class="status-badge">Draft</span>
+              <span>5-8 min</span>
+            </div>
+            <h3>Engineering Memory vs Documentation</h3>
+            <p>A look at the gap between stored documents and the working memory engineers need during technical decisions.</p>
+          </article>
+          <article class="journal-card" data-category="Engineering Intelligence">
+            <div class="journal-card-meta">
+              <span class="status-badge">Draft</span>
+              <span>5-8 min</span>
+            </div>
+            <h3>Why Engineering Specialists Need Shared Context</h3>
+            <p>Specialist support is only useful when it can reason from the same project context as the engineering team.</p>
+          </article>
+          <article class="journal-card" data-category="Artificial Intelligence">
+            <div class="journal-card-meta">
+              <span class="status-badge">Draft</span>
+              <span>5-8 min</span>
+            </div>
+            <h3>Human Oversight in Engineering AI</h3>
+            <p>Engineering judgement remains central when intelligent tools support technical work.</p>
+          </article>
+          <article class="journal-card" data-category="Industrial Engineering">
+            <div class="journal-card-meta">
+              <span class="status-badge">Draft</span>
+              <span>5-8 min</span>
+            </div>
+            <h3>Connecting Engineering Knowledge</h3>
+            <p>Engineering work benefits when drawings, reports, calculations, manuals, standards, and experience can be read together.</p>
+          </article>
+          <article class="journal-card" data-category="Robotics">
+            <div class="journal-card-meta">
+              <span class="status-badge">Draft</span>
+              <span>5-8 min</span>
+            </div>
+            <h3>Robotics Beyond Automation</h3>
+            <p>Robotics systems become more useful when autonomy, inspection, software, and operational context are considered together.</p>
+          </article>
+          <article class="journal-card" data-category="Artificial Intelligence">
+            <div class="journal-card-meta">
+              <span class="status-badge">Draft</span>
+              <span>5-8 min</span>
+            </div>
+            <h3>Building Practical AI for Engineers</h3>
+            <p>Useful engineering AI should reduce friction in technical work without obscuring responsibility or reasoning.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="page-section newsletter-cta" aria-labelledby="newsletter-title">
+        <div>
+          <p class="eyebrow">Newsletter</p>
+          <h2 id="newsletter-title">Follow the Journey</h2>
+          <p>Receive occasional updates when new engineering journal entries are published.</p>
+        </div>
+        <form class="newsletter-form" novalidate>
+          <label for="newsletter-email">Email</label>
+          <div class="newsletter-controls">
+            <input id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            <button class="button button-primary" type="submit">Notify Me</button>
+          </div>
+          <p class="newsletter-message" role="status" aria-live="polite"></p>
+        </form>
       </section>
     </main>
     <footer class="site-footer">
@@ -161,5 +297,6 @@
       </nav>
       <a href="mailto:ProjecTile@TechForgeCollective.com">ProjecTile@TechForgeCollective.com</a>
     </footer>
+    <script src="/journal/journal.js"></script>
   </body>
 </html>

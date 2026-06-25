@@ -444,6 +444,291 @@ select {
   margin-top: clamp(2rem, 5vw, 3rem);
 }
 
+.journal-main,
+.article-main {
+  width: min(100%, 72rem);
+}
+
+.journal-hero .lead {
+  max-width: 58rem;
+}
+
+.featured-article-card,
+.newsletter-cta,
+.journal-card,
+.article-shell {
+  border: 1px solid rgba(126, 255, 0, 0.14);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(126, 255, 0, 0.055), rgba(5, 12, 9, 0.72)),
+    rgba(5, 12, 9, 0.66);
+  box-shadow: 0 1.1rem 3rem rgba(0, 0, 0, 0.24);
+}
+
+.featured-article-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: start;
+  min-height: 20rem;
+  padding: clamp(1.2rem, 3.2vw, 2rem);
+}
+
+.featured-article-card h2,
+.newsletter-cta h2,
+.journal-card h3,
+.article-header h1,
+.article-section h2 {
+  margin: 0;
+  color: var(--text);
+  font-weight: 900;
+  line-height: 1.12;
+}
+
+.featured-article-card h2 {
+  max-width: 52rem;
+  font-size: clamp(2rem, 5vw, 4.4rem);
+}
+
+.featured-article-card p:not(.eyebrow),
+.newsletter-cta p,
+.journal-card p,
+.article-section p,
+.article-callout p,
+.article-section li {
+  color: rgba(174, 187, 178, 0.82);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.featured-article-card p:not(.eyebrow) {
+  max-width: 50rem;
+  margin: 1rem 0 0;
+  font-size: clamp(0.95rem, 1.7vw, 1.12rem);
+}
+
+.filter-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.filter-chip {
+  display: inline-flex;
+  min-height: 2.35rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(126, 255, 0, 0.18);
+  border-radius: 999px;
+  padding: 0.52rem 0.72rem;
+  color: rgba(247, 255, 249, 0.78);
+  background: rgba(5, 12, 9, 0.66);
+  cursor: pointer;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.filter-chip:hover,
+.filter-chip:focus-visible,
+.filter-chip.is-active {
+  border-color: rgba(126, 255, 0, 0.48);
+  color: var(--green);
+  background: rgba(126, 255, 0, 0.08);
+}
+
+.journal-article-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.journal-card {
+  display: grid;
+  min-height: 17rem;
+  align-content: start;
+  gap: 0.9rem;
+  padding: 1rem;
+}
+
+.journal-card[hidden] {
+  display: none;
+}
+
+.journal-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.journal-card-meta span:not(.status-badge) {
+  color: rgba(174, 187, 178, 0.72);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.journal-card h3 {
+  font-size: clamp(1.08rem, 1.7vw, 1.42rem);
+}
+
+.newsletter-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.9fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: end;
+  padding: clamp(1.2rem, 3vw, 1.8rem);
+}
+
+.newsletter-cta h2 {
+  font-size: clamp(1.65rem, 4vw, 3.2rem);
+}
+
+.newsletter-form {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.newsletter-form label {
+  color: rgba(247, 255, 249, 0.84);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.newsletter-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+}
+
+.newsletter-controls input {
+  min-height: 2.9rem;
+  width: 100%;
+  border: 1px solid rgba(247, 255, 249, 0.18);
+  border-radius: 8px;
+  padding: 0.8rem 0.9rem;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.34);
+  outline: none;
+}
+
+.newsletter-controls input:focus {
+  border-color: rgba(126, 255, 0, 0.58);
+}
+
+.newsletter-message {
+  min-height: 1.4rem;
+  margin: 0;
+  color: rgba(174, 187, 178, 0.82);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.newsletter-message[data-state="error"] {
+  color: #ffbf22;
+}
+
+.newsletter-message[data-state="ready"] {
+  color: var(--green);
+}
+
+.article-shell {
+  padding: clamp(1.2rem, 4vw, 2.4rem);
+}
+
+.article-header h1 {
+  max-width: 58rem;
+  font-size: clamp(2.4rem, 6vw, 5.2rem);
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.article-hero-placeholder,
+.article-diagram div {
+  display: grid;
+  min-height: 18rem;
+  place-items: center;
+  border: 1px dashed rgba(126, 255, 0, 0.28);
+  border-radius: 8px;
+  margin-top: clamp(1.4rem, 4vw, 2.4rem);
+  color: rgba(174, 187, 178, 0.72);
+  background: rgba(0, 0, 0, 0.22);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.article-section,
+.article-callout,
+.article-code,
+.article-diagram,
+.article-footer {
+  max-width: 54rem;
+  margin: clamp(1.8rem, 4vw, 2.6rem) auto 0;
+}
+
+.article-section h2 {
+  margin-bottom: 0.8rem;
+  font-size: clamp(1.45rem, 3vw, 2.25rem);
+}
+
+.article-callout {
+  border-left: 2px solid var(--green);
+  padding: 1rem;
+  background: rgba(126, 255, 0, 0.055);
+}
+
+.article-callout strong {
+  color: var(--text);
+}
+
+.article-code {
+  overflow-x: auto;
+  border: 1px solid rgba(126, 255, 0, 0.14);
+  border-radius: 8px;
+  padding: 1rem;
+  color: rgba(247, 255, 249, 0.86);
+  background: #010302;
+}
+
+.article-diagram {
+  margin-bottom: 0;
+}
+
+.article-diagram figcaption {
+  margin-top: 0.6rem;
+  color: rgba(174, 187, 178, 0.72);
+  font-size: 0.78rem;
+}
+
+.article-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(126, 255, 0, 0.14);
+}
+
 .contact-panel {
   min-height: 48svh;
   display: grid;
@@ -1150,6 +1435,7 @@ select {
 
   .card-grid,
   .journal-grid,
+  .journal-article-grid,
   .split-section,
   .principle-list,
   .technology-principle-grid {
@@ -1157,6 +1443,29 @@ select {
   }
 
   .product-card {
+    min-height: 12rem;
+  }
+
+  .featured-article-card,
+  .newsletter-cta,
+  .newsletter-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-article-card {
+    min-height: auto;
+  }
+
+  .journal-card {
+    min-height: auto;
+  }
+
+  .newsletter-controls .button {
+    width: 100%;
+  }
+
+  .article-hero-placeholder,
+  .article-diagram div {
     min-height: 12rem;
   }
 
