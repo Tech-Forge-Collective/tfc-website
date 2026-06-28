@@ -6,81 +6,205 @@
     <title>ProjecTile Development Updates | Tech Forge Collective</title>
     <meta name="description" content="Transparent development updates for ProjecTile, including benchmark snapshots, completed features, graph growth, known issues, and next priorities.">
     <meta name="robots" content="index, follow, max-image-preview:large">
-    <link rel="canonical" href="https://techforgecollective.com/updates">
-    <link rel="alternate" type="application/rss+xml" title="Engineering Journal RSS" href="https://techforgecollective.com/rss.xml">
+    <link rel="canonical" href="https://techforgecollective.com/updates/">
     <meta property="og:title" content="ProjecTile Development Updates | Tech Forge Collective">
     <meta property="og:description" content="Transparent development progress for ProjecTile.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://techforgecollective.com/updates">
+    <meta property="og:url" content="https://techforgecollective.com/updates/">
     <meta property="og:image" content="https://techforgecollective.com/assets/og-projectile.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="ProjecTile Development Updates">
     <meta name="twitter:description" content="Transparent development progress for ProjecTile.">
     <meta name="twitter:image" content="https://techforgecollective.com/assets/og-projectile.png">
     <meta name="theme-color" content="#020403">
-    <link rel="icon" href="./assets/projectile-mark.svg" type="image/svg+xml">
-    <link rel="manifest" href="./manifest.json">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="/assets/projectile-mark.svg" type="image/svg+xml">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/styles.css">
   </head>
   <body class="site-page">
     <a class="skip-link" href="#content">Skip to content</a>
     <header class="site-header" aria-label="Primary">
-      <a class="site-logo" href="./index.html" aria-label="ProjecTile home">
-        <span class="projectile-logo small" aria-hidden="true"><svg viewBox="0 0 128 128"><path class="projectile-logo-outline" d="M64 11 108 36.5v55L64 117 20 91.5v-55L64 11Z" /><path class="projectile-logo-main" d="M64 24 88 89 64 71 40 89 64 24Z" /><path class="projectile-logo-detail" d="M64 79 73 92 64 106 55 92 64 79Z" /></svg></span>
-        <strong><span class="word-white">Projec</span><span class="word-green">Tile</span></strong>
+      <a class="site-logo" href="/" aria-label="Tech Forge Collective home">
+        <span class="brand-mark" aria-hidden="true"><span class="brand-mark-text">TFC</span></span>
+        <span class="brand-name"><strong>Tech Forge Collective</strong><small>Robotics. Software. AI.</small></span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="./technology.html">Technology</a>
-        <a href="./journal.html">Journal</a>
-        <a href="./notes.html">Notes</a>
-        <a href="./updates.html" aria-current="page">Updates</a>
-        <a href="./rss.xml">RSS</a>
+        <a href="/">Home</a>
+        <a href="/projectile/">ProjecTile</a>
+        <a href="/products/">Products</a>
+        <a href="/technology/">Technology</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/journal/">Journal</a>
+        <a href="/updates/" aria-current="page">Updates</a>
+        <a href="/contact/">Contact</a>
       </nav>
     </header>
-    <main id="content" class="page-content journal-layout">
-      <section class="page-hero">
+
+    <main id="content" class="site-main updates-main" aria-labelledby="page-title">
+      <section class="page-hero updates-hero">
         <p class="eyebrow">Development Updates</p>
-        <h1>Transparent progress on the ProjecTile Engineering Operating System.</h1>
-        <p>These updates summarize readiness movement, completed capabilities, known limitations, and next priorities without exposing internal implementation details.</p>
+        <h1 id="page-title">ProjecTile progress without the theatre.</h1>
+        <p>
+          These updates summarize benchmark movement, completed capabilities, graph growth, known limitations, and next
+          priorities without exposing internal implementation details.
+        </p>
       </section>
-      <section class="update-card" aria-labelledby="update-2026-06-27">
-        <header>
-          <p class="eyebrow">v0.9 Evidence Convergence</p>
-          <h2 id="update-2026-06-27">Readiness evidence and website publication pass</h2>
-          <time datetime="2026-06-27">2026-06-27</time>
-        </header>
-        <div class="metric-grid" aria-label="Benchmark snapshot">
-          <div><span>Website production</span><strong>74%</strong></div>
-          <div><span>Website data</span><strong>86%</strong></div>
-          <div><span>Website confidence</span><strong>65%</strong></div>
-          <div><span>Evidence records</span><strong>225</strong></div>
-        </div>
-        <div class="two-column">
-          <section>
-            <h3>Completed</h3>
-            <ul>
-              <li>Readiness Evidence Registry connected to reports, workflows, calculators, and source quality.</li>
-              <li>Engineering Journal upgraded with search, metadata, RSS, and article schema.</li>
-              <li>Engineering Notes and Development Updates added as lightweight publication surfaces.</li>
-              <li>Technology page reframed around engineering capabilities.</li>
-            </ul>
-          </section>
-          <section>
-            <h3>Known issues</h3>
-            <ul>
-              <li>Lighthouse needs to be run against the production domain after deployment.</li>
-              <li>Search Console submission requires final domain verification.</li>
-              <li>Newsletter form remains a placeholder until backend handling is intentionally added.</li>
-            </ul>
-          </section>
-        </div>
-        <footer class="related-panel">
-          <h3>Next priorities</h3>
-          <a href="./journal-why-gpt-is-not-enough-for-complex-engineering-organisations.html">Publish the first engineering intelligence article</a>
-          <a href="./notes.html">Continue short engineering notes</a>
-          <a href="./technology.html">Validate capability explanations</a>
-        </footer>
+
+      <section class="updates-feed" aria-label="ProjecTile update cards">
+        <article class="update-card structured-update-card">
+          <header class="update-card-header">
+            <div>
+              <p class="eyebrow">v0.12 Navigation Repair</p>
+              <h2>Website navigation and ProjecTile experience fix</h2>
+            </div>
+            <time datetime="2026-06-28">2026-06-28</time>
+          </header>
+          <div class="metric-grid" aria-label="Benchmark snapshot">
+            <div><span>Website readiness</span><strong>Review</strong></div>
+            <div><span>Navigation</span><strong>Fixed</strong></div>
+            <div><span>Structured pages</span><strong>3</strong></div>
+            <div><span>Graph growth</span><strong>+ clarity</strong></div>
+          </div>
+          <div class="update-detail-grid">
+            <section>
+              <h3>Completed features</h3>
+              <ul>
+                <li>Separated TFC company homepage from the ProjecTile product entry.</li>
+                <li>Added dedicated ProjecTile internal navigation.</li>
+                <li>Rebuilt roadmap and updates pages as structured cards.</li>
+              </ul>
+            </section>
+            <section>
+              <h3>Graph growth</h3>
+              <p>Public content relationships are clearer: TFC company story, ProjecTile platform story, roadmap, updates, and journal now have distinct roles.</p>
+            </section>
+            <section>
+              <h3>Known issues</h3>
+              <ul>
+                <li>Manual translation review is still recommended before international launch.</li>
+                <li>Public demo scope still needs founder review.</li>
+              </ul>
+            </section>
+            <section>
+              <h3>Next priorities</h3>
+              <ul>
+                <li>Founder review of product claims.</li>
+                <li>Production domain validation.</li>
+                <li>Demo CTA decision.</li>
+              </ul>
+            </section>
+          </div>
+          <a class="button-link" href="/roadmap/">View roadmap context</a>
+        </article>
+
+        <article class="update-card structured-update-card">
+          <header class="update-card-header">
+            <div>
+              <p class="eyebrow">v0.11 Multilingual SEO</p>
+              <h2>International route and metadata foundation</h2>
+            </div>
+            <time datetime="2026-06-28">2026-06-28</time>
+          </header>
+          <div class="metric-grid" aria-label="Benchmark snapshot">
+            <div><span>Languages</span><strong>6</strong></div>
+            <div><span>Routes checked</span><strong>49</strong></div>
+            <div><span>Local links</span><strong>72</strong></div>
+            <div><span>Lighthouse SEO</span><strong>100</strong></div>
+          </div>
+          <div class="update-detail-grid">
+            <section>
+              <h3>Completed features</h3>
+              <ul>
+                <li>Static language routes for English, Dutch, Polish, German, Spanish, and French.</li>
+                <li>Canonical, hreflang, x-default, Open Graph locale, and sitemap alternates.</li>
+                <li>Language switcher in header and footer.</li>
+              </ul>
+            </section>
+            <section>
+              <h3>Graph growth</h3>
+              <p>Localized pages now map back to equivalent source routes, making content relationships explicit for crawlers and visitors.</p>
+            </section>
+            <section>
+              <h3>Known issues</h3>
+              <ul>
+                <li>Long-form article body remains English fallback for now.</li>
+                <li>Native-speaker review should happen before paid outreach.</li>
+              </ul>
+            </section>
+            <section>
+              <h3>Next priorities</h3>
+              <ul>
+                <li>Review language quality.</li>
+                <li>Add localized ProjecTile page later if needed.</li>
+                <li>Submit sitemap after final deployment.</li>
+              </ul>
+            </section>
+          </div>
+          <a class="button-link" href="/journal/">Open Engineering Journal</a>
+        </article>
+
+        <article class="update-card structured-update-card">
+          <header class="update-card-header">
+            <div>
+              <p class="eyebrow">v0.10 Evidence Convergence</p>
+              <h2>Readiness evidence and publication pass</h2>
+            </div>
+            <time datetime="2026-06-27">2026-06-27</time>
+          </header>
+          <div class="metric-grid" aria-label="Benchmark snapshot">
+            <div><span>Website production</span><strong>74%</strong></div>
+            <div><span>Website data</span><strong>86%</strong></div>
+            <div><span>Website confidence</span><strong>65%</strong></div>
+            <div><span>Evidence records</span><strong>225</strong></div>
+          </div>
+          <div class="update-detail-grid">
+            <section>
+              <h3>Completed features</h3>
+              <ul>
+                <li>Readiness Evidence Registry connected to reports, workflows, calculators, and source quality.</li>
+                <li>Engineering Journal upgraded with search, metadata, RSS, and article schema.</li>
+                <li>Technology page reframed around engineering capabilities.</li>
+              </ul>
+            </section>
+            <section>
+              <h3>Graph growth</h3>
+              <p>Evidence, reports, workflows, and source-quality signals became more visible in the public readiness story.</p>
+            </section>
+            <section>
+              <h3>Known issues</h3>
+              <ul>
+                <li>Newsletter form remains a placeholder.</li>
+                <li>Production domain verification still needs final setup.</li>
+              </ul>
+            </section>
+            <section>
+              <h3>Next priorities</h3>
+              <ul>
+                <li>Publish the first engineering intelligence article.</li>
+                <li>Continue short engineering notes.</li>
+                <li>Validate capability explanations.</li>
+              </ul>
+            </section>
+          </div>
+          <a class="button-link" href="/journal/why-gpt-is-not-enough-for-complex-engineering-organisations/">Read article</a>
+        </article>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Tech Forge Collective</strong>
+        <p>Building intelligent engineering systems for industry.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="/">Home</a>
+        <a href="/projectile/">ProjecTile</a>
+        <a href="/technology/">Technology</a>
+        <a href="/roadmap/">Roadmap</a>
+        <a href="/journal/">Journal</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+    </footer>
+    <script src="/script.js"></script>
   </body>
 </html>
