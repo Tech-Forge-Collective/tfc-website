@@ -170,6 +170,12 @@ function scrollToHomeProjectile() {
 }
 
 function initHomeBackground() {
+  if (currentLogicalRoute() !== "home") {
+    homeBackground?.remove();
+    homeBackground = null;
+    return;
+  }
+
   if (!homeBackground) {
     homeBackground = document.createElement("canvas");
     homeBackground.className = "tfc-background";
@@ -191,6 +197,28 @@ function initHomeBackground() {
   let animationFrame = 0;
   let simplified = false;
   const startedAt = performance.now();
+  const pointer = {
+    x: 0,
+    y: 0,
+    tx: 0,
+    ty: 0,
+    active: false,
+  };
+  const nodeCount = simplified ? 34 : 58;
+  const particleCount = simplified ? 86 : 144;
+  const nodes = Array.from({ length: nodeCount }, (_, index) => ({
+    seed: index * 127.13,
+    x: Math.sin(index * 14.91) * 0.5 + 0.5,
+    y: Math.cos(index * 9.37) * 0.5 + 0.5,
+    vx: 0,
+    vy: 0,
+  }));
+  const particles = Array.from({ length: particleCount }, (_, index) => ({
+    seed: index * 91.77,
+    x: Math.sin(index * 17.61) * 0.5 + 0.5,
+    y: Math.cos(index * 11.83) * 0.5 + 0.5,
+    size: 0.7 + (index % 5) * 0.22,
+  }));
 
   function resize() {
     pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -204,83 +232,127 @@ function initHomeBackground() {
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
   }
 
-  function drawShaderPlane(centerX, centerY, radiusX, radiusY, rotation, time, phase, opacity) {
+  function drawStaticGlow() {
+    context.fillStyle = "#000";
+    context.fillRect(0, 0, width, height);
+    const rightGlow = context.createRadialGradient(width * 0.92, height * 0.12, 0, width * 0.92, height * 0.12, Math.max(width, height) * 0.62);
+    rightGlow.addColorStop(0, "rgba(126, 255, 0, 0.13)");
+    rightGlow.addColorStop(0.32, "rgba(20, 88, 0, 0.09)");
+    rightGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
+    context.fillStyle = rightGlow;
+    context.fillRect(0, 0, width, height);
+  }
+
+  function drawNodeField(time) {
     context.save();
-    context.translate(centerX, centerY);
-    context.rotate(rotation + Math.sin(time * 0.18 + phase) * 0.04);
-    context.scale(radiusX, radiusY);
     context.globalCompositeOperation = "screen";
+    pointer.x += (pointer.tx - pointer.x) * 0.08;
+    pointer.y += (pointer.ty - pointer.y) * 0.08;
 
-    const gradient = context.createRadialGradient(0, 0, 0.02, 0, 0, 1.08);
-    gradient.addColorStop(0, `rgba(247, 255, 249, ${0.12 * opacity})`);
-    gradient.addColorStop(0.22, `rgba(126, 255, 0, ${0.36 * opacity})`);
-    gradient.addColorStop(0.48, `rgba(0, 166, 66, ${0.22 * opacity})`);
-    gradient.addColorStop(0.78, `rgba(0, 45, 20, ${0.12 * opacity})`);
-    gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-    context.fillStyle = gradient;
-    context.fillRect(-1.08, -1.08, 2.16, 2.16);
+    const positions = nodes.map((node, index) => {
+      const baseX = node.x * width;
+      const baseY = node.y * height;
+      const driftX = Math.sin(time * 0.16 + index * 1.7) * 10;
+      const driftY = Math.cos(time * 0.13 + index * 1.31) * 10;
+      let x = baseX + driftX;
+      let y = baseY + driftY;
 
-    const bands = simplified ? 16 : 30;
-    for (let index = 0; index < bands; index += 1) {
-      const progress = index / (bands - 1 || 1);
-      const localY = -0.88 + progress * 1.76;
-      const wave = Math.sin(progress * 18 + time * 1.6 + phase) * Math.cos(time * 0.9 + index * 0.7);
-      const alpha = (0.11 + Math.abs(wave) * 0.11) * opacity * (1 - Math.abs(progress - 0.5) * 1.2);
-      if (alpha <= 0) continue;
-      context.strokeStyle = `rgba(126, 255, 0, ${alpha})`;
-      context.lineWidth = 0.004;
-      context.beginPath();
-      context.moveTo(-0.9, localY);
-      context.bezierCurveTo(-0.36, localY + wave * 0.12, 0.26, localY - wave * 0.08, 0.9, localY + Math.sin(time + index) * 0.04);
-      context.stroke();
+      if (pointer.active && !simplified) {
+        const dx = x - pointer.x;
+        const dy = y - pointer.y;
+        const distance = Math.max(1, Math.hypot(dx, dy));
+        const radius = Math.min(width, height) * 0.34;
+        if (distance < radius) {
+          const force = (1 - distance / radius) ** 2;
+          x += (dx / distance) * force * 38;
+          y += (dy / distance) * force * 38;
+        }
+      }
+
+      return { x, y };
+    });
+
+    for (let index = 0; index < positions.length; index += 1) {
+      const a = positions[index];
+      for (let next = index + 1; next < positions.length; next += 1) {
+        const b = positions[next];
+        const distance = Math.hypot(a.x - b.x, a.y - b.y);
+        if (distance > width * 0.14) continue;
+        const pointerBoost = pointer.active
+          ? Math.max(0, 1 - Math.min(Math.hypot((a.x + b.x) * 0.5 - pointer.x, (a.y + b.y) * 0.5 - pointer.y) / 260, 1)) * 0.08
+          : 0;
+        const alpha = Math.max(0, 0.13 - distance / width * 0.55) + pointerBoost;
+        context.strokeStyle = `rgba(126, 255, 0, ${alpha})`;
+        context.lineWidth = 1;
+        context.beginPath();
+        context.moveTo(a.x, a.y);
+        context.lineTo(b.x, b.y);
+        context.stroke();
+      }
     }
 
-    const flecks = simplified ? 14 : 36;
-    for (let index = 0; index < flecks; index += 1) {
-      const x = (((index * 37) % 100) / 50) - 1 + Math.sin(time + index) * 0.025;
-      const y = (((index * 61) % 100) / 50) - 1 + Math.cos(time * 0.8 + index) * 0.025;
-      if (x * x + y * y > 1.05) continue;
-      const alpha = (0.05 + ((index % 7) / 7) * 0.08) * opacity;
-      context.fillStyle = `rgba(247, 255, 249, ${alpha})`;
-      context.fillRect(x, y, 0.01, 0.004);
+    for (let index = 0; index < positions.length; index += 1) {
+      const point = positions[index];
+      const pointerDistance = pointer.active ? Math.hypot(point.x - pointer.x, point.y - pointer.y) : 9999;
+      const boost = Math.max(0, 1 - pointerDistance / 230);
+      context.fillStyle = `rgba(126, 255, 0, ${0.4 + boost * 0.38})`;
+      context.beginPath();
+      context.arc(point.x, point.y, 1.2 + boost * 1.8, 0, Math.PI * 2);
+      context.fill();
     }
     context.restore();
   }
 
-  function drawEnergyRing(centerX, centerY, radius, time, phase, opacity) {
+  function drawParticles(time) {
     context.save();
-    context.translate(centerX, centerY);
     context.globalCompositeOperation = "screen";
-    const pulse = 1 + Math.sin(time * 2.8 + phase) * 0.035;
-    const base = radius * pulse;
-    const segments = simplified ? 3 : 5;
-    for (let index = 0; index < segments; index += 1) {
-      const start = time * (0.28 + index * 0.025) + phase + index * 1.35;
-      const end = start + Math.PI * (0.28 + (index % 2) * 0.14);
-      context.strokeStyle = `rgba(126, 255, 0, ${(0.22 - index * 0.025) * opacity})`;
-      context.lineWidth = Math.max(0.8, 1.5 - index * 0.18);
+    for (let index = 0; index < particles.length; index += 1) {
+      const particle = particles[index];
+      let x = ((particle.x * width) + Math.sin(time * 0.22 + particle.seed) * 18 + width) % width;
+      let y = ((particle.y * height) + Math.cos(time * 0.18 + particle.seed) * 16 + height) % height;
+      const pulse = 0.36 + Math.abs(Math.sin(time * 0.72 + particle.seed)) * 0.64;
+      let alpha = 0.32 + pulse * 0.25;
+
+      if (pointer.active && !simplified) {
+        const dx = x - pointer.x;
+        const dy = y - pointer.y;
+        const distance = Math.max(1, Math.hypot(dx, dy));
+        const radius = 230;
+        if (distance < radius) {
+          const force = (1 - distance / radius);
+          x += (dx / distance) * force * 42;
+          y += (dy / distance) * force * 42;
+          alpha += force * 0.35;
+        }
+      }
+
+      context.fillStyle = `rgba(126, 255, 0, ${alpha})`;
       context.beginPath();
-      context.arc(0, 0, base + index * 8, start, end);
-      context.stroke();
+      context.arc(x, y, particle.size + pulse * 0.9, 0, Math.PI * 2);
+      context.fill();
     }
     context.restore();
   }
 
   function draw() {
     const time = reducedMotion ? 0 : (performance.now() - startedAt) / 1000;
-    context.clearRect(0, 0, width, height);
-    drawShaderPlane(width * 0.7, height * 0.32, width * 0.34, height * 0.28, -0.12, time, 0, 0.86);
-    drawEnergyRing(width * 0.7, height * 0.32, Math.min(width, height) * 0.17, time, 0.4, 0.82);
-    if (!simplified) {
-      drawShaderPlane(width * 0.3, height * 0.8, width * 0.28, height * 0.22, 0.08, time, 1.8, 0.56);
-      drawEnergyRing(width * 0.3, height * 0.8, Math.min(width, height) * 0.14, time, 2.1, 0.52);
-    }
+    drawStaticGlow();
+    drawNodeField(time);
+    drawParticles(time);
 
     if (!reducedMotion) {
       animationFrame = window.requestAnimationFrame(draw);
     }
   }
 
+  window.addEventListener("pointermove", (event) => {
+    pointer.tx = event.clientX;
+    pointer.ty = event.clientY;
+    pointer.active = true;
+  }, { passive: true });
+  window.addEventListener("pointerleave", () => {
+    pointer.active = false;
+  }, { passive: true });
   window.addEventListener("resize", resize, { passive: true });
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {

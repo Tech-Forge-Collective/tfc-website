@@ -28,6 +28,8 @@ venv/**
 lighthouse-report.json
 qa-screenshots
 qa-screenshots/**
+presentation
+presentation/**
 test-results
 test-results/**
 coverage

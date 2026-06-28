@@ -19,6 +19,7 @@ venv/
 # Generated QA artifacts
 lighthouse-report.json
 qa-screenshots/
+presentation/
 coverage/
 test-results/
 .pytest-tmp/
