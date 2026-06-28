@@ -20,12 +20,17 @@ const cardHideTimers = new WeakMap();
 const SUPPORTED_LANGUAGES = new Set(["en", "nl", "pl", "de", "es", "fr"]);
 const ROUTE_MAP = {
   home: { slug: "" },
+  about: { slug: "about" },
+  contact: { slug: "contact" },
+  products: { slug: "products" },
   technology: { slug: "technology" },
   projectile: { slug: "projectile" },
   journal: { slug: "journal" },
   notes: { slug: "notes" },
   updates: { slug: "updates" },
   roadmap: { slug: "roadmap" },
+  privacy: { slug: "privacy" },
+  terms: { slug: "terms" },
   articleGptNotEnough: { slug: "journal/why-gpt-is-not-enough-for-complex-engineering-organisations" },
   notFound: { slug: "404" },
   offline: { slug: "offline" },
@@ -52,7 +57,7 @@ function currentRouteSlug() {
 }
 
 function currentLogicalRoute() {
-  return ROUTE_BY_SLUG[currentRouteSlug()] || "home";
+  return ROUTE_BY_SLUG[currentRouteSlug()] || "notFound";
 }
 
 function validTargetHash(slug) {
@@ -159,6 +164,52 @@ function initLanguageSwitcher() {
 
 initLanguageSwitcher();
 
+function initResponsiveNavigation() {
+  const navs = Array.from(document.querySelectorAll(".home-nav, .site-nav"));
+  navs.forEach((nav, index) => {
+    if (nav.dataset.responsiveNavReady === "true") return;
+    nav.dataset.responsiveNavReady = "true";
+    const id = nav.id || `site-navigation-${index + 1}`;
+    nav.id = id;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "site-menu-toggle";
+    button.setAttribute("aria-controls", id);
+    button.setAttribute("aria-expanded", "false");
+    button.textContent = "Menu";
+    nav.parentElement?.insertBefore(button, nav);
+
+    function close() {
+      nav.dataset.menuOpen = "false";
+      button.setAttribute("aria-expanded", "false");
+    }
+
+    button.addEventListener("click", () => {
+      const open = nav.dataset.menuOpen === "true";
+      document.querySelectorAll(".home-nav[data-menu-open='true'], .site-nav[data-menu-open='true']").forEach((openNav) => {
+        if (openNav !== nav) openNav.dataset.menuOpen = "false";
+      });
+      document.querySelectorAll(".site-menu-toggle[aria-expanded='true']").forEach((toggle) => {
+        if (toggle !== button) toggle.setAttribute("aria-expanded", "false");
+      });
+      nav.dataset.menuOpen = open ? "false" : "true";
+      button.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+
+    nav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) close();
+    });
+    document.addEventListener("click", (event) => {
+      if (!nav.contains(event.target) && event.target !== button) close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") close();
+    });
+  });
+}
+
+initResponsiveNavigation();
+
 function scrollToHomeProjectile() {
   const target = document.querySelector("#projectile");
   if (!target) return false;
@@ -204,6 +255,7 @@ function initHomeBackground() {
     ty: 0,
     active: false,
   };
+  const connectionTrails = new Map();
   const nodeCount = simplified ? 34 : 58;
   const particleCount = simplified ? 86 : 144;
   const nodes = Array.from({ length: nodeCount }, (_, index) => ({
@@ -235,9 +287,9 @@ function initHomeBackground() {
   function drawStaticGlow() {
     context.fillStyle = "#000";
     context.fillRect(0, 0, width, height);
-    const rightGlow = context.createRadialGradient(width * 0.92, height * 0.12, 0, width * 0.92, height * 0.12, Math.max(width, height) * 0.62);
-    rightGlow.addColorStop(0, "rgba(126, 255, 0, 0.13)");
-    rightGlow.addColorStop(0.32, "rgba(20, 88, 0, 0.09)");
+    const rightGlow = context.createRadialGradient(width * 0.5, height * 0.45, 0, width * 0.5, height * 0.45, Math.max(width, height) * 0.62);
+    rightGlow.addColorStop(0, "rgba(126, 255, 0, 0.145)");
+    rightGlow.addColorStop(0.32, "rgba(20, 88, 0, 0.105)");
     rightGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
     context.fillStyle = rightGlow;
     context.fillRect(0, 0, width, height);
@@ -272,6 +324,29 @@ function initHomeBackground() {
       return { x, y };
     });
 
+    if (pointer.active && !simplified) {
+      const nearby = positions
+        .map((point, index) => ({ ...point, index, distance: Math.hypot(point.x - pointer.x, point.y - pointer.y) }))
+        .filter((point) => point.distance < 210)
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, 7);
+      for (let index = 0; index < nearby.length; index += 1) {
+        for (let next = index + 1; next < nearby.length; next += 1) {
+          const a = nearby[index];
+          const b = nearby[next];
+          const distance = Math.hypot(a.x - b.x, a.y - b.y);
+          if (distance > 260) continue;
+          const key = `${Math.min(a.index, b.index)}:${Math.max(a.index, b.index)}`;
+          connectionTrails.set(key, {
+            from: a.index,
+            to: b.index,
+            life: 1,
+            strength: Math.max(0.16, 1 - (a.distance + b.distance) / 420),
+          });
+        }
+      }
+    }
+
     for (let index = 0; index < positions.length; index += 1) {
       const a = positions[index];
       for (let next = index + 1; next < positions.length; next += 1) {
@@ -289,6 +364,24 @@ function initHomeBackground() {
         context.lineTo(b.x, b.y);
         context.stroke();
       }
+    }
+
+    for (const [key, trail] of connectionTrails) {
+      const a = positions[trail.from];
+      const b = positions[trail.to];
+      if (!a || !b) {
+        connectionTrails.delete(key);
+        continue;
+      }
+      const alpha = trail.life * trail.strength * 0.34;
+      context.strokeStyle = `rgba(126, 255, 0, ${alpha})`;
+      context.lineWidth = 1.15 + trail.life * 0.65;
+      context.beginPath();
+      context.moveTo(a.x, a.y);
+      context.lineTo(b.x, b.y);
+      context.stroke();
+      trail.life -= reducedMotion ? 1 : 0.012;
+      if (trail.life <= 0) connectionTrails.delete(key);
     }
 
     for (let index = 0; index < positions.length; index += 1) {
