@@ -7,6 +7,9 @@ venv/
 .env
 .env.*
 !.env.example
+.dev.vars
+.dev.vars*
+.wrangler/
 
 # Generated QA artifacts
 lighthouse-report.json
