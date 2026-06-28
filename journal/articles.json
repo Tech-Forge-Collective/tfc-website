@@ -1,0 +1,156 @@
+{
+  "articles": [
+    {
+      "title": "Building an Engineering Intelligence Platform",
+      "slug": "building-an-engineering-intelligence-platform",
+      "summary": "A technical framing of engineering intelligence as a workspace for project context, knowledge, reports, and decisions.",
+      "category": "Engineering Intelligence",
+      "tags": [
+        "engineering intelligence",
+        "product design",
+        "systems"
+      ],
+      "status": "Draft",
+      "published_date": null,
+      "reading_time": "5-8 min",
+      "featured": false,
+      "seo": {
+        "title": "Building an Engineering Intelligence Platform | Tech Forge Collective",
+        "description": "A draft engineering journal article about the development principles behind an Engineering Intelligence Platform."
+      }
+    },
+    {
+      "title": "Knowledge Should Outlive Projects",
+      "slug": "knowledge-should-outlive-projects",
+      "summary": "Why project knowledge needs to remain available after handover, delivery, and team changes.",
+      "category": "Knowledge Systems",
+      "tags": [
+        "knowledge systems",
+        "documentation",
+        "project memory"
+      ],
+      "status": "Draft",
+      "published_date": null,
+      "reading_time": "5-8 min",
+      "featured": false,
+      "seo": {
+        "title": "Knowledge Should Outlive Projects | Tech Forge Collective",
+        "description": "A draft engineering journal article about persistent engineering knowledge across projects."
+      }
+    },
+    {
+      "title": "Engineering Memory vs Documentation",
+      "slug": "engineering-memory-vs-documentation",
+      "summary": "A look at the gap between stored documents and the working memory engineers need during technical decisions.",
+      "category": "Knowledge Systems",
+      "tags": [
+        "documentation",
+        "engineering knowledge",
+        "traceability"
+      ],
+      "status": "Draft",
+      "published_date": null,
+      "reading_time": "5-8 min",
+      "featured": false,
+      "seo": {
+        "title": "Engineering Memory vs Documentation | Tech Forge Collective",
+        "description": "A draft engineering journal article about engineering memory, documentation, and technical context."
+      }
+    },
+    {
+      "title": "Why Engineering Specialists Need Shared Context",
+      "slug": "why-engineering-specialists-need-shared-context",
+      "summary": "Specialist support is only useful when it can reason from the same project context as the engineering team.",
+      "category": "Engineering Intelligence",
+      "tags": [
+        "specialists",
+        "project context",
+        "engineering workflows"
+      ],
+      "status": "Draft",
+      "published_date": null,
+      "reading_time": "5-8 min",
+      "featured": false,
+      "seo": {
+        "title": "Why Engineering Specialists Need Shared Context | Tech Forge Collective",
+        "description": "A draft engineering journal article about specialist engineering roles and shared project context."
+      }
+    },
+    {
+      "title": "Human Oversight in Engineering AI",
+      "slug": "human-oversight-in-engineering-ai",
+      "summary": "Engineering judgement remains central when intelligent tools support technical work.",
+      "category": "Artificial Intelligence",
+      "tags": [
+        "human oversight",
+        "engineering judgement",
+        "AI"
+      ],
+      "status": "Draft",
+      "published_date": null,
+      "reading_time": "5-8 min",
+      "featured": false,
+      "seo": {
+        "title": "Human Oversight in Engineering AI | Tech Forge Collective",
+        "description": "A draft engineering journal article about human oversight and engineering judgement in AI-supported work."
+      }
+    },
+    {
+      "title": "Connecting Engineering Knowledge",
+      "slug": "connecting-engineering-knowledge",
+      "summary": "Engineering work benefits when drawings, reports, calculations, manuals, standards, and experience can be read together.",
+      "category": "Industrial Engineering",
+      "tags": [
+        "connected knowledge",
+        "industrial engineering",
+        "technical records"
+      ],
+      "status": "Draft",
+      "published_date": null,
+      "reading_time": "5-8 min",
+      "featured": false,
+      "seo": {
+        "title": "Connecting Engineering Knowledge | Tech Forge Collective",
+        "description": "A draft engineering journal article about connecting engineering knowledge across technical sources."
+      }
+    },
+    {
+      "title": "Robotics Beyond Automation",
+      "slug": "robotics-beyond-automation",
+      "summary": "Robotics systems become more useful when autonomy, inspection, software, and operational context are considered together.",
+      "category": "Robotics",
+      "tags": [
+        "robotics",
+        "automation",
+        "inspection"
+      ],
+      "status": "Draft",
+      "published_date": null,
+      "reading_time": "5-8 min",
+      "featured": false,
+      "seo": {
+        "title": "Robotics Beyond Automation | Tech Forge Collective",
+        "description": "A draft engineering journal article about robotics beyond simple automation tasks."
+      }
+    },
+    {
+      "title": "Building Practical AI for Engineers",
+      "slug": "building-practical-ai-for-engineers",
+      "summary": "Useful engineering AI should reduce friction in technical work without obscuring responsibility or reasoning.",
+      "category": "Artificial Intelligence",
+      "tags": [
+        "AI",
+        "software engineering",
+        "engineering workflows"
+      ],
+      "status": "Draft",
+      "published_date": null,
+      "reading_time": "5-8 min",
+      "featured": false,
+      "seo": {
+        "title": "Building Practical AI for Engineers | Tech Forge Collective",
+        "description": "A draft engineering journal article about practical AI systems for engineering teams."
+      }
+    }
+  ]
+}
