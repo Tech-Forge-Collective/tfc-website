@@ -170,6 +170,7 @@ select {
   display: grid;
   gap: 0.18rem;
   text-align: left;
+  white-space: nowrap;
 }
 
 .brand-name strong {
@@ -876,7 +877,9 @@ input:focus-visible {
 .brand-link {
   display: inline-flex;
   align-items: center;
+  flex: 0 0 auto;
   gap: 0.7rem;
+  min-width: max-content;
   color: var(--text);
   text-decoration: none;
 }
@@ -920,17 +923,14 @@ body > .site-nav {
 .site-logo {
   display: inline-flex;
   align-items: center;
+  flex: 0 0 auto;
   gap: 0.65rem;
+  min-width: max-content;
   color: var(--text);
   font-size: clamp(1.1rem, 3vw, 1.7rem);
   text-decoration: none;
 }
 
-.site-logo,
-.brand-link,
-.site-header,
-body > header.brand,
-.home-brand,
 .home-hero h1,
 .home-card,
 .capability-card,
