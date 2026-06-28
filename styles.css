@@ -1698,8 +1698,9 @@ body > header.brand .language-switcher,
   height: 100%;
   pointer-events: none;
   background:
-    radial-gradient(circle at 78% 18%, rgba(126, 255, 0, 0.07), transparent 24rem),
-    radial-gradient(circle at 18% 78%, rgba(15, 255, 102, 0.058), transparent 28rem),
+    radial-gradient(circle at 76% 18%, rgba(126, 255, 0, 0.095), transparent 26rem),
+    radial-gradient(circle at 18% 82%, rgba(15, 255, 102, 0.07), transparent 30rem),
+    radial-gradient(circle at 50% 52%, rgba(247, 255, 249, 0.022), transparent 34rem),
     #000;
 }
 
@@ -1717,11 +1718,11 @@ body > header.brand .language-switcher,
   z-index: -1;
   pointer-events: none;
   content: "";
-  opacity: 0.2;
+  opacity: 0.14;
   background-image:
-    linear-gradient(rgba(126, 255, 0, 0.098) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(126, 255, 0, 0.062) 1px, transparent 1px);
-  background-size: 70px 70px;
+    linear-gradient(rgba(126, 255, 0, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(126, 255, 0, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
   mask-image: linear-gradient(180deg, #000 0%, transparent 78%);
 }
 

@@ -180,109 +180,158 @@ function initHomeBackground() {
   const coarsePointer = window.matchMedia?.("(pointer: coarse)")?.matches;
   const compactViewport = window.matchMedia?.("(max-width: 899px)")?.matches;
   const lowPower = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
-  if (reducedMotion || coarsePointer || compactViewport || lowPower) return;
 
   const canvas = homeBackground;
   const context = canvas.getContext("2d", { alpha: true });
   if (!context) return;
 
-  const pointer = { x: 0, y: 0, active: false };
-  const nodes = [];
   let width = 0;
   let height = 0;
   let pixelRatio = 1;
   let animationFrame = 0;
   let tick = 0;
+  let simplified = false;
+  const rings = [
+    { x: 0.68, y: 0.22, r: 150, speed: 0.35, phase: 0.2 },
+    { x: 0.17, y: 0.78, r: 190, speed: -0.22, phase: 1.6 },
+    { x: 0.58, y: 0.62, r: 260, speed: 0.16, phase: 2.8 },
+  ];
 
   function resize() {
     pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
     width = window.innerWidth;
     height = window.innerHeight;
+    simplified = coarsePointer || compactViewport || lowPower;
     canvas.width = Math.floor(width * pixelRatio);
     canvas.height = Math.floor(height * pixelRatio);
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    }
 
-    const count = Math.min(coarsePointer ? 37 : 78, Math.max(31, Math.floor((width * height) / 23600)));
-    nodes.length = 0;
+  function drawGrid(time) {
+    const spacing = simplified ? 68 : 56;
+    const drift = reducedMotion ? 0 : Math.sin(time * 0.32) * 6;
+    context.lineWidth = 1;
+    context.strokeStyle = "rgba(126, 255, 0, 0.055)";
+
+    for (let x = -spacing; x < width + spacing; x += spacing) {
+      const offset = Math.sin(time * 0.55 + x * 0.01) * (simplified ? 1.5 : 4);
+      context.beginPath();
+      context.moveTo(x + drift, 0);
+      context.lineTo(x + offset, height);
+      context.stroke();
+    }
+
+    context.strokeStyle = "rgba(126, 255, 0, 0.04)";
+    for (let y = -spacing; y < height + spacing; y += spacing) {
+      const offset = Math.cos(time * 0.44 + y * 0.012) * (simplified ? 1.5 : 4);
+      context.beginPath();
+      context.moveTo(0, y + offset);
+      context.lineTo(width, y + drift);
+      context.stroke();
+    }
+  }
+
+  function drawShaderPlane(centerX, centerY, radiusX, radiusY, time, phase) {
+    const gradient = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, Math.max(radiusX, radiusY));
+    gradient.addColorStop(0, "rgba(126, 255, 0, 0.13)");
+    gradient.addColorStop(0.42, "rgba(25, 255, 119, 0.052)");
+    gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+    context.fillStyle = gradient;
+    context.beginPath();
+    context.ellipse(centerX, centerY, radiusX, radiusY, Math.sin(time * 0.22 + phase) * 0.18, 0, Math.PI * 2);
+    context.fill();
+
+    const lines = simplified ? 5 : 9;
+    for (let index = 0; index < lines; index += 1) {
+      const progress = (index + 1) / (lines + 1);
+      const wave = Math.sin(time * 1.1 + phase + progress * 6.28);
+      const y = centerY - radiusY * 0.55 + progress * radiusY * 1.1 + wave * 16;
+      const alpha = (1 - Math.abs(progress - 0.5) * 1.6) * 0.12;
+      if (alpha <= 0) continue;
+      context.strokeStyle = `rgba(126, 255, 0, ${alpha})`;
+      context.lineWidth = 1;
+      context.beginPath();
+      context.moveTo(centerX - radiusX * 0.62, y);
+      context.bezierCurveTo(
+        centerX - radiusX * 0.15,
+        y + wave * 26,
+        centerX + radiusX * 0.22,
+        y - wave * 18,
+        centerX + radiusX * 0.62,
+        y + Math.cos(time + phase + index) * 12,
+      );
+      context.stroke();
+    }
+  }
+
+  function drawEnergyRing(ring, time, index) {
+    const centerX = ring.x * width;
+    const centerY = ring.y * height;
+    const baseRadius = Math.min(width, height) * (ring.r / 900);
+    const pulse = Math.sin(time * 2.1 + ring.phase) * 0.18 + 0.82;
+    const radius = baseRadius * pulse;
+    const start = time * ring.speed + ring.phase;
+    const arcs = simplified ? 2 : 4;
+
+    for (let segment = 0; segment < arcs; segment += 1) {
+      const segmentStart = start + segment * (Math.PI * 2 / arcs);
+      const segmentEnd = segmentStart + Math.PI * (simplified ? 0.38 : 0.54);
+      const alpha = simplified ? 0.12 : 0.17;
+      context.strokeStyle = `rgba(126, 255, 0, ${alpha})`;
+      context.lineWidth = segment % 2 === 0 ? 1.4 : 0.85;
+      context.beginPath();
+      context.arc(centerX, centerY, radius + segment * 11, segmentStart, segmentEnd);
+      context.stroke();
+    }
+
+    const core = context.createRadialGradient(centerX, centerY, radius * 0.25, centerX, centerY, radius * 1.5);
+    core.addColorStop(0, "rgba(247, 255, 249, 0.026)");
+    core.addColorStop(0.45, `rgba(126, 255, 0, ${simplified ? 0.025 : 0.04})`);
+    core.addColorStop(1, "rgba(0, 0, 0, 0)");
+    context.fillStyle = core;
+    context.beginPath();
+    context.arc(centerX, centerY, radius * 1.5 + index * 12, 0, Math.PI * 2);
+    context.fill();
+  }
+
+  function drawPoints(time) {
+    const count = simplified ? 26 : 54;
     for (let index = 0; index < count; index += 1) {
-      const baseX = (index * 89) % width;
-      const baseY = (index * 137) % height;
-      nodes.push({
-        baseX,
-        baseY,
-        x: baseX,
-        y: baseY,
-        vx: ((index % 5) - 2) * 0.045,
-        vy: (((index + 2) % 7) - 3) * 0.034,
-        radius: index % 6 === 0 ? 1.55 : 1,
-      });
+      const seedX = ((index * 97) % 1000) / 1000;
+      const seedY = ((index * 163) % 1000) / 1000;
+      const x = seedX * width + Math.sin(time * 0.25 + index) * 10;
+      const y = seedY * height + Math.cos(time * 0.2 + index * 0.7) * 8;
+      const radius = index % 8 === 0 ? 1.45 : 0.85;
+      const alpha = 0.32 + Math.sin(time * 1.8 + index) * 0.12;
+      context.fillStyle = `rgba(126, 255, 0, ${alpha})`;
+      context.beginPath();
+      context.arc(x, y, radius, 0, Math.PI * 2);
+      context.fill();
     }
   }
 
   function draw() {
     context.clearRect(0, 0, width, height);
-    context.lineWidth = 1;
-    tick += 0.006;
+    const time = reducedMotion ? 0 : tick;
+    tick += simplified ? 0.006 : 0.01;
 
-    nodes.forEach((node, index) => {
-      const waveX = Math.sin(tick + index * 0.7 + node.baseY * 0.004) * 12;
-      const waveY = Math.cos(tick * 1.2 + index * 0.5 + node.baseX * 0.003) * 8;
-      node.baseX += node.vx;
-      node.baseY += node.vy;
-      if (node.baseX < -20) node.baseX = width + 20;
-      if (node.baseX > width + 20) node.baseX = -20;
-      if (node.baseY < -20) node.baseY = height + 20;
-      if (node.baseY > height + 20) node.baseY = -20;
-      node.x = node.baseX + waveX;
-      node.y = node.baseY + waveY;
-    });
-
-    for (let i = 0; i < nodes.length; i += 1) {
-      const a = nodes[i];
-      for (let j = i + 1; j < nodes.length; j += 1) {
-        const b = nodes[j];
-        const distance = Math.hypot(a.x - b.x, a.y - b.y);
-        if (distance > 165) continue;
-        const alpha = (1 - distance / 165) * 0.23;
-        context.strokeStyle = `rgba(126, 255, 0, ${alpha})`;
-        context.beginPath();
-        context.moveTo(a.x, a.y);
-        context.lineTo(b.x, b.y);
-        context.stroke();
-      }
-
-      if (pointer.active) {
-        const pointerDistance = Math.hypot(a.x - pointer.x, a.y - pointer.y);
-        if (pointerDistance < 210) {
-          const alpha = (1 - pointerDistance / 210) * 0.2;
-          context.strokeStyle = `rgba(182, 255, 101, ${alpha})`;
-          context.beginPath();
-          context.moveTo(a.x, a.y);
-          context.lineTo(pointer.x, pointer.y);
-          context.stroke();
-        }
-      }
-
-      context.fillStyle = "rgba(126, 255, 0, 0.49)";
-      context.beginPath();
-      context.arc(a.x, a.y, a.radius, 0, Math.PI * 2);
-      context.fill();
+    drawGrid(time);
+    drawShaderPlane(width * 0.78, height * 0.24, width * 0.34, height * 0.32, time, 0.2);
+    drawShaderPlane(width * 0.2, height * 0.84, width * 0.28, height * 0.26, time, 1.8);
+    if (!simplified) {
+      drawShaderPlane(width * 0.5, height * 0.54, width * 0.4, height * 0.28, time, 3.1);
     }
+    rings.slice(0, simplified ? 2 : rings.length).forEach((ring, index) => drawEnergyRing(ring, time, index));
+    drawPoints(time);
 
-    animationFrame = window.requestAnimationFrame(draw);
+    if (!reducedMotion) {
+      animationFrame = window.requestAnimationFrame(draw);
+    }
   }
 
   window.addEventListener("resize", resize, { passive: true });
-  window.addEventListener("pointermove", (event) => {
-    pointer.x = event.clientX;
-    pointer.y = event.clientY;
-    pointer.active = true;
-  }, { passive: true });
-  window.addEventListener("pointerleave", () => {
-    pointer.active = false;
-  }, { passive: true });
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       window.cancelAnimationFrame(animationFrame);
@@ -292,7 +341,7 @@ function initHomeBackground() {
   });
 
   resize();
-  animationFrame = window.requestAnimationFrame(draw);
+  draw();
 
   window.addEventListener("pagehide", () => {
     window.cancelAnimationFrame(animationFrame);
