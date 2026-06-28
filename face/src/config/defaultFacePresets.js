@@ -27,7 +27,7 @@ export function createDefaultFacePresets() {
     version: 1,
     activeSkin: "GlassWaterSkin",
     activeState: "idle",
-    productionConfigPath: "face/config/face-presets.json",
+    productionConfigPath: "backend/face/config/face-presets.json",
     global: {
       cameraDistance: 5.8,
       cameraHeight: 0.18,

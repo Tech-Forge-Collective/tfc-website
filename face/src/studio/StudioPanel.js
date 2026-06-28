@@ -119,7 +119,7 @@ export class StudioPanel {
         <button type="button" data-deploy>Deploy</button>
       </div>
       <input data-file type="file" accept="application/json" hidden>
-      <p class="studio-help">Production file: face/config/face-presets.json</p>
+      <p class="studio-help">Production file: backend/face/config/face-presets.json</p>
     `;
     this.bind();
   }
@@ -195,7 +195,7 @@ export class StudioPanel {
       this.setStatus("Deploying production config...");
       try {
         const result = await this.presets.deployProduction(this.controller.config);
-        const routeNote = result.redirects_to_face ? ` Face route: ${result.face_url}` : "";
+        const routeNote = result.redirects_to_blacksmith ? ` /face redirects to Blacksmith: ${result.blacksmith_ai_url}` : "";
         this.setStatus(result.path ? `Deployed to ${result.path}.${routeNote}` : `Deployed production config.${routeNote}`);
       } catch (error) {
         this.presets.saveLocalProduction(this.controller.config);

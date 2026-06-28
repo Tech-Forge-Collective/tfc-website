@@ -100,7 +100,7 @@ button {
 
 .svg-robot-head-skin .rig-green {
   fill: none !important;
-  stroke: var(--projectile-green, #36ff66) !important;
+  stroke: var(--t1-green, #36ff66) !important;
   stroke-width: 9px;
   stroke-linejoin: round;
   stroke-linecap: round;
@@ -108,7 +108,7 @@ button {
 }
 
 .svg-robot-head-skin .rig-eye {
-  fill: var(--projectile-white, #ffffff) !important;
+  fill: var(--t1-white, #ffffff) !important;
   stroke: none !important;
 }
 

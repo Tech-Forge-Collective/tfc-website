@@ -1,0 +1,18 @@
+{
+  "siteName": "Tech Forge Collective",
+  "product": "ProjecTile",
+  "canonicalOrigin": "https://techforgecollective.com",
+  "environment": "production",
+  "company": "Tech Forge Collective",
+  "owner": "Tech Forge Collective",
+  "contact": "contact@techforgecollective.com",
+  "searchConsoleVerification": "pending-production-verification-token",
+  "bingWebmasterVerification": "pending-production-verification-token",
+  "cacheStrategy": "static-shell-network-first",
+  "lighthouseTargets": {
+    "performance": 90,
+    "accessibility": 90,
+    "bestPractices": 90,
+    "seo": 90
+  }
+}

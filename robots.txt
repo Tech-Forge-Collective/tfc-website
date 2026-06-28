@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://techforgecollective.com/sitemap.xml
+Sitemap: https://techforgecollective.com/rss.xml

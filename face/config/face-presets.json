@@ -2,7 +2,7 @@
   "version": 1,
   "activeSkin": "OrganicBlobSkin",
   "activeState": "idle",
-  "productionConfigPath": "face/config/face-presets.json",
+  "productionConfigPath": "backend/face/config/face-presets.json",
   "global": {
     "cameraDistance": 4.9,
     "cameraHeight": -1.05

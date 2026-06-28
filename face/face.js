@@ -3,7 +3,7 @@ import { FaceStateController } from "./src/face/FaceStateController.js";
 import { StudioPanel } from "./src/studio/StudioPanel.js";
 import { PresetManager } from "./src/studio/PresetManager.js";
 
-const ORB_STATES = new Set(["idle", "listening", "thinking", "speaking", "success", "error", "sleeping", "wake", "mission", "warning", "offline", "estop"]);
+const ORB_STATES = new Set(["idle", "listening", "thinking", "speaking", "processing", "success", "error", "sleeping", "wake", "mission", "warning", "offline", "estop"]);
 const ACTION_MAP = new Map([
   ["time", "time"],
   ["calendar", "calendar"],
@@ -194,7 +194,11 @@ async function bootFaceApp() {
 
 window.addEventListener("message", (event) => {
   const payload = event.data || {};
-  if (payload.type !== "projectile-face-state") return;
+  if (payload.type === "projectile-face-heartbeat") {
+    window.parent?.postMessage({ type: "projectile-face-heartbeat-ack", at: Date.now() }, "*");
+    return;
+  }
+  if (payload.type !== "blacksmith-face-state") return;
   if (event.source !== window.parent && event.source !== window.opener) return;
   applyState(payload);
 });
@@ -217,3 +221,4 @@ document.addEventListener("visibilitychange", () => {
 });
 
 bootFaceApp();
+window.parent?.postMessage({ type: "projectile-face-ready", at: Date.now() }, "*");
