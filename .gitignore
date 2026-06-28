@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Generated QA artifacts
+lighthouse-report.json
+qa-screenshots/
+coverage/
+test-results/
+.pytest-tmp/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Logs and caches
+*.log
+.cache/
+.tmp/
+tmp/

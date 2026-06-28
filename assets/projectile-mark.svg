@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="ProjecTile hexagon rocket">
+  <path d="M64 11 108 36.5v55L64 117 20 91.5v-55L64 11Z" fill="none" stroke="#ffffff" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M64 24 88 89 64 71 40 89 64 24Z" fill="#ffffff"/>
+  <path d="M64 79 73 92 64 106 55 92 64 79Z" fill="#ffffff"/>
+</svg>

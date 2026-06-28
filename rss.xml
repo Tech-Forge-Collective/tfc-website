@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Engineering Journal | Tech Forge Collective</title>
+    <link>https://techforgecollective.com/journal</link>
+    <description>Engineering research, design decisions, and technical notes from the development of ProjecTile.</description>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0200</lastBuildDate>
+    <atom:link href="https://techforgecollective.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Why GPT Is Not Enough for Complex Engineering Organisations</title>
+      <link>https://techforgecollective.com/journal/why-gpt-is-not-enough-for-complex-engineering-organisations</link>
+      <guid isPermaLink="true">https://techforgecollective.com/journal/why-gpt-is-not-enough-for-complex-engineering-organisations</guid>
+      <pubDate>Sat, 27 Jun 2026 00:00:00 +0200</pubDate>
+      <category>Engineering Intelligence</category>
+      <description>Engineering organisations need deterministic calculations, traceability, standards, evidence, decisions, and long-term engineering memory. GPT alone is not enough.</description>
+    </item>
+    <item>
+      <title>Why deterministic engineering calculations still matter in the age of AI</title>
+      <link>https://techforgecollective.com/journal/why-deterministic-engineering-calculations-still-matter-in-the-age-of-ai</link>
+      <guid isPermaLink="true">https://techforgecollective.com/journal/why-deterministic-engineering-calculations-still-matter-in-the-age-of-ai</guid>
+      <pubDate>Sat, 27 Jun 2026 00:00:00 +0200</pubDate>
+      <category>Engineering Tools</category>
+      <description>Engineering intelligence needs traceable calculations, assumptions, units, verification, and human responsibility.</description>
+    </item>
+    <item>
+      <title>Engineering Notes</title>
+      <link>https://techforgecollective.com/notes</link>
+      <guid isPermaLink="true">https://techforgecollective.com/notes</guid>
+      <pubDate>Sat, 27 Jun 2026 00:00:00 +0200</pubDate>
+      <category>Research Notes</category>
+      <description>Short technical updates on ProjecTile engineering decisions, readiness, knowledge graph evolution, and deterministic engineering systems.</description>
+    </item>
+  </channel>
+</rss>
