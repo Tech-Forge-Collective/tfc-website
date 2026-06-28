@@ -189,13 +189,8 @@ function initHomeBackground() {
   let height = 0;
   let pixelRatio = 1;
   let animationFrame = 0;
-  let tick = 0;
   let simplified = false;
-  const rings = [
-    { x: 0.68, y: 0.22, r: 150, speed: 0.35, phase: 0.2 },
-    { x: 0.17, y: 0.78, r: 190, speed: -0.22, phase: 1.6 },
-    { x: 0.58, y: 0.62, r: 260, speed: 0.16, phase: 2.8 },
-  ];
+  const startedAt = performance.now();
 
   function resize() {
     pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -207,124 +202,79 @@ function initHomeBackground() {
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    }
-
-  function drawGrid(time) {
-    const spacing = simplified ? 68 : 56;
-    const drift = reducedMotion ? 0 : Math.sin(time * 0.32) * 6;
-    context.lineWidth = 1;
-    context.strokeStyle = "rgba(126, 255, 0, 0.055)";
-
-    for (let x = -spacing; x < width + spacing; x += spacing) {
-      const offset = Math.sin(time * 0.55 + x * 0.01) * (simplified ? 1.5 : 4);
-      context.beginPath();
-      context.moveTo(x + drift, 0);
-      context.lineTo(x + offset, height);
-      context.stroke();
-    }
-
-    context.strokeStyle = "rgba(126, 255, 0, 0.04)";
-    for (let y = -spacing; y < height + spacing; y += spacing) {
-      const offset = Math.cos(time * 0.44 + y * 0.012) * (simplified ? 1.5 : 4);
-      context.beginPath();
-      context.moveTo(0, y + offset);
-      context.lineTo(width, y + drift);
-      context.stroke();
-    }
   }
 
-  function drawShaderPlane(centerX, centerY, radiusX, radiusY, time, phase) {
-    const gradient = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, Math.max(radiusX, radiusY));
-    gradient.addColorStop(0, "rgba(126, 255, 0, 0.13)");
-    gradient.addColorStop(0.42, "rgba(25, 255, 119, 0.052)");
+  function drawShaderPlane(centerX, centerY, radiusX, radiusY, rotation, time, phase, opacity) {
+    context.save();
+    context.translate(centerX, centerY);
+    context.rotate(rotation + Math.sin(time * 0.18 + phase) * 0.04);
+    context.scale(radiusX, radiusY);
+    context.globalCompositeOperation = "screen";
+
+    const gradient = context.createRadialGradient(0, 0, 0.02, 0, 0, 1.08);
+    gradient.addColorStop(0, `rgba(247, 255, 249, ${0.12 * opacity})`);
+    gradient.addColorStop(0.22, `rgba(126, 255, 0, ${0.36 * opacity})`);
+    gradient.addColorStop(0.48, `rgba(0, 166, 66, ${0.22 * opacity})`);
+    gradient.addColorStop(0.78, `rgba(0, 45, 20, ${0.12 * opacity})`);
     gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
     context.fillStyle = gradient;
-    context.beginPath();
-    context.ellipse(centerX, centerY, radiusX, radiusY, Math.sin(time * 0.22 + phase) * 0.18, 0, Math.PI * 2);
-    context.fill();
+    context.fillRect(-1.08, -1.08, 2.16, 2.16);
 
-    const lines = simplified ? 5 : 9;
-    for (let index = 0; index < lines; index += 1) {
-      const progress = (index + 1) / (lines + 1);
-      const wave = Math.sin(time * 1.1 + phase + progress * 6.28);
-      const y = centerY - radiusY * 0.55 + progress * radiusY * 1.1 + wave * 16;
-      const alpha = (1 - Math.abs(progress - 0.5) * 1.6) * 0.12;
+    const bands = simplified ? 16 : 30;
+    for (let index = 0; index < bands; index += 1) {
+      const progress = index / (bands - 1 || 1);
+      const localY = -0.88 + progress * 1.76;
+      const wave = Math.sin(progress * 18 + time * 1.6 + phase) * Math.cos(time * 0.9 + index * 0.7);
+      const alpha = (0.11 + Math.abs(wave) * 0.11) * opacity * (1 - Math.abs(progress - 0.5) * 1.2);
       if (alpha <= 0) continue;
       context.strokeStyle = `rgba(126, 255, 0, ${alpha})`;
-      context.lineWidth = 1;
+      context.lineWidth = 0.004;
       context.beginPath();
-      context.moveTo(centerX - radiusX * 0.62, y);
-      context.bezierCurveTo(
-        centerX - radiusX * 0.15,
-        y + wave * 26,
-        centerX + radiusX * 0.22,
-        y - wave * 18,
-        centerX + radiusX * 0.62,
-        y + Math.cos(time + phase + index) * 12,
-      );
-      context.stroke();
-    }
-  }
-
-  function drawEnergyRing(ring, time, index) {
-    const centerX = ring.x * width;
-    const centerY = ring.y * height;
-    const baseRadius = Math.min(width, height) * (ring.r / 900);
-    const pulse = Math.sin(time * 2.1 + ring.phase) * 0.18 + 0.82;
-    const radius = baseRadius * pulse;
-    const start = time * ring.speed + ring.phase;
-    const arcs = simplified ? 2 : 4;
-
-    for (let segment = 0; segment < arcs; segment += 1) {
-      const segmentStart = start + segment * (Math.PI * 2 / arcs);
-      const segmentEnd = segmentStart + Math.PI * (simplified ? 0.38 : 0.54);
-      const alpha = simplified ? 0.12 : 0.17;
-      context.strokeStyle = `rgba(126, 255, 0, ${alpha})`;
-      context.lineWidth = segment % 2 === 0 ? 1.4 : 0.85;
-      context.beginPath();
-      context.arc(centerX, centerY, radius + segment * 11, segmentStart, segmentEnd);
+      context.moveTo(-0.9, localY);
+      context.bezierCurveTo(-0.36, localY + wave * 0.12, 0.26, localY - wave * 0.08, 0.9, localY + Math.sin(time + index) * 0.04);
       context.stroke();
     }
 
-    const core = context.createRadialGradient(centerX, centerY, radius * 0.25, centerX, centerY, radius * 1.5);
-    core.addColorStop(0, "rgba(247, 255, 249, 0.026)");
-    core.addColorStop(0.45, `rgba(126, 255, 0, ${simplified ? 0.025 : 0.04})`);
-    core.addColorStop(1, "rgba(0, 0, 0, 0)");
-    context.fillStyle = core;
-    context.beginPath();
-    context.arc(centerX, centerY, radius * 1.5 + index * 12, 0, Math.PI * 2);
-    context.fill();
+    const flecks = simplified ? 14 : 36;
+    for (let index = 0; index < flecks; index += 1) {
+      const x = (((index * 37) % 100) / 50) - 1 + Math.sin(time + index) * 0.025;
+      const y = (((index * 61) % 100) / 50) - 1 + Math.cos(time * 0.8 + index) * 0.025;
+      if (x * x + y * y > 1.05) continue;
+      const alpha = (0.05 + ((index % 7) / 7) * 0.08) * opacity;
+      context.fillStyle = `rgba(247, 255, 249, ${alpha})`;
+      context.fillRect(x, y, 0.01, 0.004);
+    }
+    context.restore();
   }
 
-  function drawPoints(time) {
-    const count = simplified ? 26 : 54;
-    for (let index = 0; index < count; index += 1) {
-      const seedX = ((index * 97) % 1000) / 1000;
-      const seedY = ((index * 163) % 1000) / 1000;
-      const x = seedX * width + Math.sin(time * 0.25 + index) * 10;
-      const y = seedY * height + Math.cos(time * 0.2 + index * 0.7) * 8;
-      const radius = index % 8 === 0 ? 1.45 : 0.85;
-      const alpha = 0.32 + Math.sin(time * 1.8 + index) * 0.12;
-      context.fillStyle = `rgba(126, 255, 0, ${alpha})`;
+  function drawEnergyRing(centerX, centerY, radius, time, phase, opacity) {
+    context.save();
+    context.translate(centerX, centerY);
+    context.globalCompositeOperation = "screen";
+    const pulse = 1 + Math.sin(time * 2.8 + phase) * 0.035;
+    const base = radius * pulse;
+    const segments = simplified ? 3 : 5;
+    for (let index = 0; index < segments; index += 1) {
+      const start = time * (0.28 + index * 0.025) + phase + index * 1.35;
+      const end = start + Math.PI * (0.28 + (index % 2) * 0.14);
+      context.strokeStyle = `rgba(126, 255, 0, ${(0.22 - index * 0.025) * opacity})`;
+      context.lineWidth = Math.max(0.8, 1.5 - index * 0.18);
       context.beginPath();
-      context.arc(x, y, radius, 0, Math.PI * 2);
-      context.fill();
+      context.arc(0, 0, base + index * 8, start, end);
+      context.stroke();
     }
+    context.restore();
   }
 
   function draw() {
+    const time = reducedMotion ? 0 : (performance.now() - startedAt) / 1000;
     context.clearRect(0, 0, width, height);
-    const time = reducedMotion ? 0 : tick;
-    tick += simplified ? 0.006 : 0.01;
-
-    drawGrid(time);
-    drawShaderPlane(width * 0.78, height * 0.24, width * 0.34, height * 0.32, time, 0.2);
-    drawShaderPlane(width * 0.2, height * 0.84, width * 0.28, height * 0.26, time, 1.8);
+    drawShaderPlane(width * 0.7, height * 0.32, width * 0.34, height * 0.28, -0.12, time, 0, 0.86);
+    drawEnergyRing(width * 0.7, height * 0.32, Math.min(width, height) * 0.17, time, 0.4, 0.82);
     if (!simplified) {
-      drawShaderPlane(width * 0.5, height * 0.54, width * 0.4, height * 0.28, time, 3.1);
+      drawShaderPlane(width * 0.3, height * 0.8, width * 0.28, height * 0.22, 0.08, time, 1.8, 0.56);
+      drawEnergyRing(width * 0.3, height * 0.8, Math.min(width, height) * 0.14, time, 2.1, 0.52);
     }
-    rings.slice(0, simplified ? 2 : rings.length).forEach((ring, index) => drawEnergyRing(ring, time, index));
-    drawPoints(time);
 
     if (!reducedMotion) {
       animationFrame = window.requestAnimationFrame(draw);
