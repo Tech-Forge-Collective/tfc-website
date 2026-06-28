@@ -846,7 +846,7 @@ input:focus-visible {
 
 .site-header {
   position: relative;
-  z-index: 1;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -875,7 +875,7 @@ body > header.brand {
   position: relative;
   top: auto;
   left: auto;
-  z-index: 2;
+  z-index: 20;
   display: flex;
   align-items: center;
   width: min(1120px, calc(100vw - 2rem));
@@ -888,7 +888,7 @@ body > .site-nav {
   position: absolute;
   top: 2.45rem;
   right: max(1rem, calc((100vw - 1120px) / 2));
-  z-index: 2;
+  z-index: 21;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -994,6 +994,12 @@ body > header.brand,
   white-space: nowrap;
 }
 
+.language-flag,
+.language-globe {
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", system-ui, sans-serif;
+  line-height: 1;
+}
+
 .language-switcher-button {
   display: inline-flex;
   align-items: center;
@@ -1017,7 +1023,7 @@ body > header.brand,
   position: absolute;
   top: calc(100% + 0.45rem);
   right: 0;
-  z-index: 20;
+  z-index: 80;
   display: grid;
   min-width: 15.5rem;
   border: 1px solid rgba(126, 255, 0, 0.34);

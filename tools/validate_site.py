@@ -254,6 +254,9 @@ def validate_homepage() -> None:
     assert_contains(script, "requestIdleCallback", "script.js")
     if "createRadialGradient(pointer" in script:
         fail("script.js contains cursor-follow glow in the background")
+    sw = (ROOT / "sw.js").read_text(encoding="utf-8")
+    if "projectile-site-v13-i18n-language-fix" not in sw:
+        fail("sw.js cache version was not bumped for the multilingual language fix")
 
 
 def validate_technology_page() -> None:

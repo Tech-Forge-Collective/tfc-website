@@ -1,4 +1,4 @@
-const CACHE_NAME = "projectile-site-v12-i18n";
+const CACHE_NAME = "projectile-site-v13-i18n-language-fix";
 const STATIC_ASSETS = [
   "./",
   "./index.html",
