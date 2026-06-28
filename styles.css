@@ -955,10 +955,13 @@ body > header.brand,
 
 .site-menu-toggle {
   display: none;
+  flex-direction: column;
+  gap: 0.28rem;
   align-items: center;
   justify-content: center;
+  width: 3.05rem;
   min-height: 2.45rem;
-  padding: 0.45rem 0.78rem;
+  padding: 0.45rem 0.66rem;
   border: 1px solid rgba(126, 255, 0, 0.34);
   border-radius: 999px;
   color: var(--text);
@@ -968,6 +971,15 @@ body > header.brand,
   line-height: 1;
   text-transform: uppercase;
   box-shadow: 0 0 1.2rem rgba(126, 255, 0, 0.08);
+}
+
+.site-menu-toggle span {
+  display: block;
+  width: 1.18rem;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 0.55rem rgba(126, 255, 0, 0.26);
 }
 
 .page-content,
@@ -1154,6 +1166,9 @@ body > header.brand:not(.home-brand) .language-switcher {
   line-height: 1.04;
   max-width: 14ch;
   text-wrap: balance;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 .page-hero p,
@@ -1382,6 +1397,11 @@ body > header.brand:not(.home-brand) .language-switcher {
   max-width: 740px;
   color: rgba(247, 255, 249, 0.78);
   line-height: 1.7;
+}
+
+.projectile-hero-copy #tagline {
+  width: min(100%, 39rem);
+  max-width: 100%;
 }
 
 .projectile-hero-brand {
@@ -2102,13 +2122,14 @@ body > header.brand:not(.home-brand) .language-switcher {
 
   .site-menu-toggle {
     display: inline-flex;
+    position: fixed;
+    top: max(1rem, calc(env(safe-area-inset-top, 0px) + 0.75rem));
+    right: 1rem;
+    z-index: 120;
   }
 
   body > .site-menu-toggle {
-    position: absolute;
-    top: 1.4rem;
-    right: 1rem;
-    z-index: 35;
+    position: fixed;
   }
 
   .home-brand .site-menu-toggle {
@@ -2118,14 +2139,15 @@ body > header.brand:not(.home-brand) .language-switcher {
   body > .site-nav,
   .home-brand .home-nav,
   .site-nav {
-    position: absolute;
-    top: 4.65rem;
+    position: fixed;
+    top: max(4.35rem, calc(env(safe-area-inset-top, 0px) + 4.1rem));
     right: 1rem;
     left: auto;
-    z-index: 34;
+    z-index: 119;
     display: grid;
-    width: min(18rem, calc(100vw - 2rem));
-    max-width: none;
+    width: max-content;
+    min-width: min(13rem, calc(100vw - 2rem));
+    max-width: calc(100vw - 2rem);
     max-height: min(72svh, 32rem);
     gap: 0.45rem;
     margin: 0;
@@ -2145,7 +2167,7 @@ body > header.brand:not(.home-brand) .language-switcher {
   }
 
   .home-brand .home-nav {
-    top: calc(100% + 0.65rem);
+    top: max(4.35rem, calc(env(safe-area-inset-top, 0px) + 4.1rem));
   }
 
   body > .site-nav[data-menu-open="true"],
@@ -2159,8 +2181,54 @@ body > header.brand:not(.home-brand) .language-switcher {
   body > .site-nav a,
   .home-brand .home-nav a,
   .site-nav a {
-    width: 100%;
+    width: auto;
+    min-width: max-content;
     justify-content: flex-start;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  .projectile-product-nav {
+    position: relative;
+    top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0.5rem;
+    overflow: visible;
+    margin: 0 auto;
+    padding: 0.65rem;
+    border: 1px solid rgba(126, 255, 0, 0.22);
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.68);
+  }
+
+  .projectile-product-nav a {
+    min-width: max-content;
+    white-space: nowrap;
+  }
+
+  .projectile-hero,
+  .projectile-hero-copy,
+  .projectile-hero-brand,
+  .projectile-hero-copy p {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .projectile-hero-copy p,
+  .projectile-cta .button-link {
+    overflow-wrap: anywhere;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  .projectile-hero-copy #tagline {
+    width: 100%;
+    letter-spacing: 0.018em;
   }
 }
 
@@ -2171,11 +2239,22 @@ body > header.brand:not(.home-brand) .language-switcher {
 
   .home-hero h1,
   .home-section h2 {
-    font-size: clamp(1.55rem, 7vw, 2.45rem);
+    font-size: clamp(1.7rem, 8.2vw, 2.5rem);
+    line-height: 1.05;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
   }
 
-  .article-hero h1 {
-    font-size: clamp(1.75rem, 8vw, 2.55rem);
+  .page-hero h1,
+  .article-hero h1,
+  .error-page h1 {
+    max-width: 100%;
+    font-size: clamp(1.85rem, 8.6vw, 2.7rem);
+    line-height: 1.06;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
   }
 
   .site-header,
@@ -2195,6 +2274,26 @@ body > header.brand:not(.home-brand) .language-switcher {
   .home-orb-panel .orb-stage,
   .home-orb-panel .orb-button {
     width: min(76vw, 18rem);
+  }
+
+  .projectile-hero-brand {
+    --wordmark-size: clamp(2.05rem, 11vw, 3rem);
+  }
+
+  .projectile-hero-brand .projectile-logo {
+    width: clamp(2.35rem, 10vw, 3rem);
+  }
+
+  .projectile-cta,
+  .home-actions {
+    width: 100%;
+  }
+
+  .projectile-cta .button-link,
+  .home-actions .button-link {
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
   }
 }
 

@@ -176,7 +176,8 @@ function initResponsiveNavigation() {
     button.className = "site-menu-toggle";
     button.setAttribute("aria-controls", id);
     button.setAttribute("aria-expanded", "false");
-    button.textContent = "Menu";
+    button.setAttribute("aria-label", "Open menu");
+    button.innerHTML = '<span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>';
     nav.parentElement?.insertBefore(button, nav);
 
     function close() {
@@ -301,7 +302,8 @@ function initHomeBackground() {
     pointer.x += (pointer.tx - pointer.x) * 0.08;
     pointer.y += (pointer.ty - pointer.y) * 0.08;
 
-    const positions = nodes.map((node, index) => {
+    const activeNodes = simplified ? nodes.slice(0, 34) : nodes;
+    const positions = activeNodes.map((node, index) => {
       const baseX = node.x * width;
       const baseY = node.y * height;
       const driftX = Math.sin(time * 0.16 + index * 1.7) * 10;
@@ -399,12 +401,13 @@ function initHomeBackground() {
   function drawParticles(time) {
     context.save();
     context.globalCompositeOperation = "screen";
-    for (let index = 0; index < particles.length; index += 1) {
-      const particle = particles[index];
+    const activeParticles = simplified ? particles.slice(0, 76) : particles;
+    for (let index = 0; index < activeParticles.length; index += 1) {
+      const particle = activeParticles[index];
       let x = ((particle.x * width) + Math.sin(time * 0.22 + particle.seed) * 18 + width) % width;
       let y = ((particle.y * height) + Math.cos(time * 0.18 + particle.seed) * 16 + height) % height;
       const pulse = 0.36 + Math.abs(Math.sin(time * 0.72 + particle.seed)) * 0.64;
-      let alpha = 0.32 + pulse * 0.25;
+      let alpha = (simplified ? 0.19 : 0.32) + pulse * (simplified ? 0.16 : 0.25);
 
       if (pointer.active && !simplified) {
         const dx = x - pointer.x;
