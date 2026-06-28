@@ -82,7 +82,7 @@ function languageSwitcherMarkup(lang = "en", placement = "dynamic") {
       return `<a role="option" aria-selected="${selected}" href="${languageHref(code)}" data-lang="${code}" lang="${code}"${selected ? ' aria-current="true"' : ""}><span class="language-flag" aria-hidden="true">${meta.flag}</span><span class="language-code">${code.toUpperCase()}</span><span class="language-name">${meta.name}</span></a>`;
     })
     .join("");
-  return `<nav class="language-switcher" aria-label="Language" data-current-lang="${lang}"><button class="language-switcher-button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="${id}" aria-label="Open language menu"><span class="language-globe" aria-hidden="true">&#9678;</span><span class="language-button-label">Language</span><span class="language-current-code">${lang.toUpperCase()}</span><span class="language-arrow" aria-hidden="true">&#9662;</span></button><div class="language-switcher-menu" id="${id}" role="listbox" hidden>${links}</div></nav>`;
+  return `<nav class="language-switcher" aria-label="Language" data-current-lang="${lang}"><button class="language-switcher-button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="${id}" aria-label="Open language menu"><span class="language-current-code">${lang.toUpperCase()}</span></button><div class="language-switcher-menu" id="${id}" role="listbox" hidden>${links}</div></nav>`;
 }
 
 function ensureLanguageSwitcherPresence() {
@@ -90,9 +90,6 @@ function ensureLanguageSwitcherPresence() {
   const lang = currentRouteLanguage() || "en";
   const header = document.querySelector(".site-header, body > header.brand, .home-brand");
   if (header) header.insertAdjacentHTML("beforeend", languageSwitcherMarkup(lang, "header"));
-  if (!document.querySelector(".site-language-footer")) {
-    document.body.insertAdjacentHTML("beforeend", `<footer class="site-language-footer">${languageSwitcherMarkup(lang, "footer")}</footer>`);
-  }
 }
 
 function initLanguageSwitcher() {
