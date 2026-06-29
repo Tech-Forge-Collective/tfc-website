@@ -812,7 +812,15 @@ filterButtons.forEach((button) => button.addEventListener("click", () => {
 }));
 
 if ("serviceWorker" in navigator && window.location.protocol !== "file:") {
-  navigator.serviceWorker.register("./sw.js").catch(() => {});
+  navigator.serviceWorker.getRegistrations?.()
+    .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
+    .catch(() => {});
+}
+
+if ("caches" in window) {
+  caches.keys()
+    .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+    .catch(() => {});
 }
 
 function initHomeReveal() {

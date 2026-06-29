@@ -48,7 +48,7 @@ const STATIC_ASSETS = [
   "./es/updates/",
   "./fr/updates/",
   "./styles.css?v=20260629-mobile-buttons",
-  "./script.js",
+  "./script.js?v=20260629-cache-clear",
   "./offline.html",
   "./404.html",
   "./500.html",
