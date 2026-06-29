@@ -149,21 +149,11 @@ select {
   width: 3.95rem;
   height: 3.95rem;
   place-items: center;
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  overflow: hidden;
-  background: #010302;
-  box-shadow: 0 0 26px rgba(126, 255, 0, 0.2);
-}
-
-.brand-mark-text {
-  color: var(--green);
-  font-size: 1.05rem;
-  font-style: italic;
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  text-shadow: 0 0 16px rgba(126, 255, 0, 0.55);
-  transform: skew(-12deg);
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+  box-shadow: none;
 }
 
 .brand-name {
