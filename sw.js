@@ -1,4 +1,4 @@
-const CACHE_NAME = "projectile-site-v13-i18n-language-fix";
+const CACHE_NAME = "projectile-site-v13-i18n-language-fix-mobile-buttons-v2";
 const STATIC_ASSETS = [
   "./",
   "./index.html",
@@ -47,7 +47,7 @@ const STATIC_ASSETS = [
   "./de/updates/",
   "./es/updates/",
   "./fr/updates/",
-  "./styles.css",
+  "./styles.css?v=20260629-mobile-buttons",
   "./script.js",
   "./offline.html",
   "./404.html",
