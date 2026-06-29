@@ -2352,7 +2352,7 @@ body > header.brand {
   align-items: center;
   flex-wrap: nowrap;
   gap: clamp(0.55rem, 1.3vw, 0.9rem);
-  width: min(1120px, calc(100vw - 2rem));
+  width: min(1680px, calc(100vw - 2rem));
   margin-inline: auto;
   padding: 0.72rem 0.82rem;
   border: 1px solid rgba(126, 255, 0, 0.22);
@@ -2392,12 +2392,23 @@ body > header.brand .brand-mark {
 .home-brand .brand-name,
 .site-header .brand-name,
 body > header.brand .brand-name {
-  flex: 0 0 auto;
+  min-width: 0;
 }
 
 .site-logo,
 .brand-link {
-  flex: 0 0 auto;
+  flex: 0 1 clamp(12rem, 24vw, 22rem);
+  min-width: 0;
+  max-width: clamp(12rem, 24vw, 22rem);
+}
+
+.site-logo .brand-name strong,
+.brand-link .brand-name strong,
+.site-logo .brand-name small,
+.brand-link .brand-name small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .home-nav,
@@ -2435,7 +2446,8 @@ body > .site-nav {
 
 .site-header .language-switcher,
 .home-brand .language-switcher,
-body > header.brand .language-switcher {
+body > header.brand .language-switcher,
+body > header.brand:not(.home-brand) .language-switcher {
   position: relative;
   top: auto;
   left: auto;
@@ -2447,9 +2459,29 @@ body > header.brand .language-switcher {
 
 .site-header .language-switcher-menu,
 .home-brand .language-switcher-menu,
-body > header.brand .language-switcher-menu {
+body > header.brand .language-switcher-menu,
+body > header.brand:not(.home-brand) .language-switcher-menu {
   right: 0;
   left: auto;
+}
+
+@media (max-width: 1180px) {
+  .site-logo,
+  .brand-link {
+    flex-basis: clamp(9rem, 20vw, 16rem);
+    max-width: clamp(9rem, 20vw, 16rem);
+  }
+
+  .site-header .brand-name small,
+  body > header.brand .brand-name small {
+    display: none;
+  }
+
+  .site-nav a,
+  body > .site-nav a {
+    min-height: 2.2rem;
+    padding-inline: 0.52rem;
+  }
 }
 
 .home-hero {
