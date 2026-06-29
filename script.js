@@ -161,6 +161,19 @@ function initLanguageSwitcher() {
 
 initLanguageSwitcher();
 
+function initUnifiedHeaderNavigation() {
+  document.querySelectorAll("body > header.brand:not(.home-brand)").forEach((header) => {
+    const nav = header.nextElementSibling?.matches(".site-nav") ? header.nextElementSibling : null;
+    if (!nav || nav.dataset.unifiedHeaderNav === "true") return;
+    nav.dataset.unifiedHeaderNav = "true";
+    const languageSwitcher = header.querySelector(".language-switcher");
+    if (languageSwitcher) header.insertBefore(nav, languageSwitcher);
+    else header.appendChild(nav);
+  });
+}
+
+initUnifiedHeaderNavigation();
+
 function initResponsiveNavigation() {
   const navs = Array.from(document.querySelectorAll(".home-nav, .site-nav"));
   navs.forEach((nav, index) => {
@@ -555,6 +568,8 @@ function scheduleFaceOrbLoad() {
   window.addEventListener("load", run, { once: true });
 }
 
+scheduleFaceOrbLoad();
+
 function setActiveOrbMode(mode) {
   const nextMode = ORB_MODES.includes(mode) ? mode : "idle";
   if (nextMode === activeOrbMode) {
@@ -799,3 +814,26 @@ filterButtons.forEach((button) => button.addEventListener("click", () => {
 if ("serviceWorker" in navigator && window.location.protocol !== "file:") {
   navigator.serviceWorker.register("./sw.js").catch(() => {});
 }
+
+function initHomeReveal() {
+  const targets = Array.from(document.querySelectorAll(".home-section, .home-card, .home-hero-copy, .home-orb-panel"));
+  if (!targets.length) return;
+  const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  if (reducedMotion || !("IntersectionObserver" in window)) {
+    targets.forEach((target) => target.classList.add("is-visible"));
+    return;
+  }
+
+  document.body.classList.add("reveal-ready");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+
+  targets.forEach((target) => observer.observe(target));
+}
+
+initHomeReveal();
