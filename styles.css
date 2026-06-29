@@ -2175,6 +2175,7 @@ body > header.brand:not(.home-brand) .language-switcher {
 
   .home-brand .home-nav {
     top: max(4.35rem, calc(env(safe-area-inset-top, 0px) + 4.1rem));
+    min-width: 0;
   }
 
   body > .site-nav[data-menu-open="true"],
