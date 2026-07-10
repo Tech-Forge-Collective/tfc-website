@@ -1,12 +1,12 @@
 {
-  "name": "Tech Forge Collective",
-  "short_name": "TFC",
-  "description": "Tech Forge Collective builds practical software, AI, robotics, and automation systems for engineering environments.",
+  "name": "ProjecTile | Tech Forge Collective",
+  "short_name": "ProjecTile",
+  "description": "ProjecTile is an upcoming engineering intelligence workspace by Tech Forge Collective.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#000000",
+  "theme_color": "#020403",
   "orientation": "portrait-primary",
   "icons": [
     {

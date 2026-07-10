@@ -1,4 +1,4 @@
-const CACHE_NAME = "projectile-site-v13-i18n-language-fix-tfc-icons-v4";
+const CACHE_NAME = "projectile-site-v13-i18n-language-fix-arrow-icons-v5";
 const STATIC_ASSETS = [
   "./",
   "./index.html",
@@ -52,20 +52,20 @@ const STATIC_ASSETS = [
   "./offline.html",
   "./404.html",
   "./500.html",
-  "./manifest.json?v=4",
-  "./favicon.ico?v=4",
-  "./apple-touch-icon.png?v=4",
-  "./assets/icons/favicon-16.png?v=4",
-  "./assets/icons/favicon-32.png?v=4",
-  "./assets/icons/favicon-48.png?v=4",
-  "./assets/icons/favicon-64.png?v=4",
+  "./manifest.json?v=5",
+  "./favicon.svg?v=5",
+  "./favicon.ico?v=5",
+  "./apple-touch-icon.png?v=5",
+  "./assets/icons/favicon-16.png?v=5",
+  "./assets/icons/favicon-32.png?v=5",
+  "./assets/icons/favicon-48.png?v=5",
+  "./assets/icons/favicon-64.png?v=5",
   "./assets/icons/icon-180.png",
   "./assets/icons/icon-192.png",
   "./assets/icons/icon-512.png",
   "./assets/icons/maskable-512.png",
   "./assets/icons/site-icon-512.png",
-  "./assets/tfc-logo-simple.png",
-  "./assets/og-tfc.png"
+  "./assets/projectile-mark.svg"
 ];
 
 self.addEventListener("install", (event) => {
