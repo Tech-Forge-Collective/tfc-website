@@ -20,12 +20,17 @@ const cardHideTimers = new WeakMap();
 const SUPPORTED_LANGUAGES = new Set(["en", "nl", "pl", "de", "es", "fr"]);
 const ROUTE_MAP = {
   home: { slug: "" },
+  about: { slug: "about" },
+  contact: { slug: "contact" },
+  products: { slug: "products" },
   technology: { slug: "technology" },
   projectile: { slug: "projectile" },
   journal: { slug: "journal" },
   notes: { slug: "notes" },
   updates: { slug: "updates" },
   roadmap: { slug: "roadmap" },
+  privacy: { slug: "privacy" },
+  terms: { slug: "terms" },
   articleGptNotEnough: { slug: "journal/why-gpt-is-not-enough-for-complex-engineering-organisations" },
   notFound: { slug: "404" },
   offline: { slug: "offline" },
@@ -52,7 +57,7 @@ function currentRouteSlug() {
 }
 
 function currentLogicalRoute() {
-  return ROUTE_BY_SLUG[currentRouteSlug()] || "home";
+  return ROUTE_BY_SLUG[currentRouteSlug()] || "notFound";
 }
 
 function validTargetHash(slug) {
@@ -77,7 +82,7 @@ function languageSwitcherMarkup(lang = "en", placement = "dynamic") {
       return `<a role="option" aria-selected="${selected}" href="${languageHref(code)}" data-lang="${code}" lang="${code}"${selected ? ' aria-current="true"' : ""}><span class="language-flag" aria-hidden="true">${meta.flag}</span><span class="language-code">${code.toUpperCase()}</span><span class="language-name">${meta.name}</span></a>`;
     })
     .join("");
-  return `<nav class="language-switcher" aria-label="Language" data-current-lang="${lang}"><button class="language-switcher-button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="${id}" aria-label="Open language menu"><span class="language-globe" aria-hidden="true">&#9678;</span><span class="language-button-label">Language</span><span class="language-current-code">${lang.toUpperCase()}</span><span class="language-arrow" aria-hidden="true">&#9662;</span></button><div class="language-switcher-menu" id="${id}" role="listbox" hidden>${links}</div></nav>`;
+  return `<nav class="language-switcher" aria-label="Language" data-current-lang="${lang}"><button class="language-switcher-button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="${id}" aria-label="Open language menu"><span class="language-current-code">${lang.toUpperCase()}</span></button><div class="language-switcher-menu" id="${id}" role="listbox" hidden>${links}</div></nav>`;
 }
 
 function ensureLanguageSwitcherPresence() {
@@ -85,9 +90,6 @@ function ensureLanguageSwitcherPresence() {
   const lang = currentRouteLanguage() || "en";
   const header = document.querySelector(".site-header, body > header.brand, .home-brand");
   if (header) header.insertAdjacentHTML("beforeend", languageSwitcherMarkup(lang, "header"));
-  if (!document.querySelector(".site-language-footer")) {
-    document.body.insertAdjacentHTML("beforeend", `<footer class="site-language-footer">${languageSwitcherMarkup(lang, "footer")}</footer>`);
-  }
 }
 
 function initLanguageSwitcher() {
@@ -159,6 +161,66 @@ function initLanguageSwitcher() {
 
 initLanguageSwitcher();
 
+function initUnifiedHeaderNavigation() {
+  document.querySelectorAll("body > header.brand:not(.home-brand)").forEach((header) => {
+    const nav = header.nextElementSibling?.matches(".site-nav") ? header.nextElementSibling : null;
+    if (!nav || nav.dataset.unifiedHeaderNav === "true") return;
+    nav.dataset.unifiedHeaderNav = "true";
+    const languageSwitcher = header.querySelector(".language-switcher");
+    if (languageSwitcher) header.insertBefore(nav, languageSwitcher);
+    else header.appendChild(nav);
+  });
+}
+
+initUnifiedHeaderNavigation();
+
+function initResponsiveNavigation() {
+  const navs = Array.from(document.querySelectorAll(".home-nav, .site-nav"));
+  navs.forEach((nav, index) => {
+    if (nav.dataset.responsiveNavReady === "true") return;
+    nav.dataset.responsiveNavReady = "true";
+    const id = nav.id || `site-navigation-${index + 1}`;
+    nav.id = id;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "site-menu-toggle";
+    button.setAttribute("aria-controls", id);
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-label", "Open menu");
+    button.innerHTML = '<span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>';
+    nav.parentElement?.insertBefore(button, nav);
+
+    function close() {
+      nav.dataset.menuOpen = "false";
+      button.setAttribute("aria-expanded", "false");
+    }
+
+    button.addEventListener("click", () => {
+      const open = nav.dataset.menuOpen === "true";
+      document.querySelectorAll(".home-nav[data-menu-open='true'], .site-nav[data-menu-open='true']").forEach((openNav) => {
+        if (openNav !== nav) openNav.dataset.menuOpen = "false";
+      });
+      document.querySelectorAll(".site-menu-toggle[aria-expanded='true']").forEach((toggle) => {
+        if (toggle !== button) toggle.setAttribute("aria-expanded", "false");
+      });
+      nav.dataset.menuOpen = open ? "false" : "true";
+      button.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+
+    nav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) close();
+    });
+    document.addEventListener("click", (event) => {
+      if (!nav.contains(event.target) && !button.contains(event.target)) close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") close();
+    });
+  });
+}
+
+initResponsiveNavigation();
+
 function scrollToHomeProjectile() {
   const target = document.querySelector("#projectile");
   if (!target) return false;
@@ -170,6 +232,12 @@ function scrollToHomeProjectile() {
 }
 
 function initHomeBackground() {
+  if (currentLogicalRoute() !== "home") {
+    homeBackground?.remove();
+    homeBackground = null;
+    return;
+  }
+
   if (!homeBackground) {
     homeBackground = document.createElement("canvas");
     homeBackground.className = "tfc-background";
@@ -180,109 +248,218 @@ function initHomeBackground() {
   const coarsePointer = window.matchMedia?.("(pointer: coarse)")?.matches;
   const compactViewport = window.matchMedia?.("(max-width: 899px)")?.matches;
   const lowPower = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
-  if (reducedMotion || coarsePointer || compactViewport || lowPower) return;
 
   const canvas = homeBackground;
   const context = canvas.getContext("2d", { alpha: true });
   if (!context) return;
 
-  const pointer = { x: 0, y: 0, active: false };
-  const nodes = [];
   let width = 0;
   let height = 0;
   let pixelRatio = 1;
   let animationFrame = 0;
-  let tick = 0;
+  let simplified = false;
+  const startedAt = performance.now();
+  const pointer = {
+    x: 0,
+    y: 0,
+    tx: 0,
+    ty: 0,
+    active: false,
+  };
+  const connectionTrails = new Map();
+  const nodeCount = simplified ? 34 : 58;
+  const particleCount = simplified ? 86 : 144;
+  const nodes = Array.from({ length: nodeCount }, (_, index) => ({
+    seed: index * 127.13,
+    x: Math.sin(index * 14.91) * 0.5 + 0.5,
+    y: Math.cos(index * 9.37) * 0.5 + 0.5,
+    vx: 0,
+    vy: 0,
+  }));
+  const particles = Array.from({ length: particleCount }, (_, index) => ({
+    seed: index * 91.77,
+    x: Math.sin(index * 17.61) * 0.5 + 0.5,
+    y: Math.cos(index * 11.83) * 0.5 + 0.5,
+    size: 0.7 + (index % 5) * 0.22,
+  }));
 
   function resize() {
     pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
     width = window.innerWidth;
     height = window.innerHeight;
+    simplified = coarsePointer || compactViewport || lowPower;
     canvas.width = Math.floor(width * pixelRatio);
     canvas.height = Math.floor(height * pixelRatio);
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-
-    const count = Math.min(coarsePointer ? 37 : 78, Math.max(31, Math.floor((width * height) / 23600)));
-    nodes.length = 0;
-    for (let index = 0; index < count; index += 1) {
-      const baseX = (index * 89) % width;
-      const baseY = (index * 137) % height;
-      nodes.push({
-        baseX,
-        baseY,
-        x: baseX,
-        y: baseY,
-        vx: ((index % 5) - 2) * 0.045,
-        vy: (((index + 2) % 7) - 3) * 0.034,
-        radius: index % 6 === 0 ? 1.55 : 1,
-      });
-    }
   }
 
-  function draw() {
-    context.clearRect(0, 0, width, height);
-    context.lineWidth = 1;
-    tick += 0.006;
+  function drawStaticGlow() {
+    context.fillStyle = "#000";
+    context.fillRect(0, 0, width, height);
+    const rightGlow = context.createRadialGradient(width * 0.5, height * 0.45, 0, width * 0.5, height * 0.45, Math.max(width, height) * 0.62);
+    rightGlow.addColorStop(0, "rgba(126, 255, 0, 0.145)");
+    rightGlow.addColorStop(0.32, "rgba(20, 88, 0, 0.105)");
+    rightGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
+    context.fillStyle = rightGlow;
+    context.fillRect(0, 0, width, height);
+  }
 
-    nodes.forEach((node, index) => {
-      const waveX = Math.sin(tick + index * 0.7 + node.baseY * 0.004) * 12;
-      const waveY = Math.cos(tick * 1.2 + index * 0.5 + node.baseX * 0.003) * 8;
-      node.baseX += node.vx;
-      node.baseY += node.vy;
-      if (node.baseX < -20) node.baseX = width + 20;
-      if (node.baseX > width + 20) node.baseX = -20;
-      if (node.baseY < -20) node.baseY = height + 20;
-      if (node.baseY > height + 20) node.baseY = -20;
-      node.x = node.baseX + waveX;
-      node.y = node.baseY + waveY;
+  function drawNodeField(time) {
+    context.save();
+    context.globalCompositeOperation = "screen";
+    pointer.x += (pointer.tx - pointer.x) * 0.08;
+    pointer.y += (pointer.ty - pointer.y) * 0.08;
+
+    const activeNodes = simplified ? nodes.slice(0, 34) : nodes;
+    const positions = activeNodes.map((node, index) => {
+      const baseX = node.x * width;
+      const baseY = node.y * height;
+      const driftX = Math.sin(time * 0.16 + index * 1.7) * 10;
+      const driftY = Math.cos(time * 0.13 + index * 1.31) * 10;
+      let x = baseX + driftX;
+      let y = baseY + driftY;
+
+      if (pointer.active && !simplified) {
+        const dx = x - pointer.x;
+        const dy = y - pointer.y;
+        const distance = Math.max(1, Math.hypot(dx, dy));
+        const radius = Math.min(width, height) * 0.34;
+        if (distance < radius) {
+          const force = (1 - distance / radius) ** 2;
+          x += (dx / distance) * force * 38;
+          y += (dy / distance) * force * 38;
+        }
+      }
+
+      return { x, y };
     });
 
-    for (let i = 0; i < nodes.length; i += 1) {
-      const a = nodes[i];
-      for (let j = i + 1; j < nodes.length; j += 1) {
-        const b = nodes[j];
+    if (pointer.active && !simplified) {
+      const nearby = positions
+        .map((point, index) => ({ ...point, index, distance: Math.hypot(point.x - pointer.x, point.y - pointer.y) }))
+        .filter((point) => point.distance < 210)
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, 7);
+      for (let index = 0; index < nearby.length; index += 1) {
+        for (let next = index + 1; next < nearby.length; next += 1) {
+          const a = nearby[index];
+          const b = nearby[next];
+          const distance = Math.hypot(a.x - b.x, a.y - b.y);
+          if (distance > 260) continue;
+          const key = `${Math.min(a.index, b.index)}:${Math.max(a.index, b.index)}`;
+          connectionTrails.set(key, {
+            from: a.index,
+            to: b.index,
+            life: 1,
+            strength: Math.max(0.16, 1 - (a.distance + b.distance) / 420),
+          });
+        }
+      }
+    }
+
+    for (let index = 0; index < positions.length; index += 1) {
+      const a = positions[index];
+      for (let next = index + 1; next < positions.length; next += 1) {
+        const b = positions[next];
         const distance = Math.hypot(a.x - b.x, a.y - b.y);
-        if (distance > 165) continue;
-        const alpha = (1 - distance / 165) * 0.23;
+        if (distance > width * 0.14) continue;
+        const pointerBoost = pointer.active
+          ? Math.max(0, 1 - Math.min(Math.hypot((a.x + b.x) * 0.5 - pointer.x, (a.y + b.y) * 0.5 - pointer.y) / 260, 1)) * 0.08
+          : 0;
+        const alpha = Math.max(0, 0.13 - distance / width * 0.55) + pointerBoost;
         context.strokeStyle = `rgba(126, 255, 0, ${alpha})`;
+        context.lineWidth = 1;
         context.beginPath();
         context.moveTo(a.x, a.y);
         context.lineTo(b.x, b.y);
         context.stroke();
       }
+    }
 
-      if (pointer.active) {
-        const pointerDistance = Math.hypot(a.x - pointer.x, a.y - pointer.y);
-        if (pointerDistance < 210) {
-          const alpha = (1 - pointerDistance / 210) * 0.2;
-          context.strokeStyle = `rgba(182, 255, 101, ${alpha})`;
-          context.beginPath();
-          context.moveTo(a.x, a.y);
-          context.lineTo(pointer.x, pointer.y);
-          context.stroke();
+    for (const [key, trail] of connectionTrails) {
+      const a = positions[trail.from];
+      const b = positions[trail.to];
+      if (!a || !b) {
+        connectionTrails.delete(key);
+        continue;
+      }
+      const alpha = trail.life * trail.strength * 0.34;
+      context.strokeStyle = `rgba(126, 255, 0, ${alpha})`;
+      context.lineWidth = 1.15 + trail.life * 0.65;
+      context.beginPath();
+      context.moveTo(a.x, a.y);
+      context.lineTo(b.x, b.y);
+      context.stroke();
+      trail.life -= reducedMotion ? 1 : 0.012;
+      if (trail.life <= 0) connectionTrails.delete(key);
+    }
+
+    for (let index = 0; index < positions.length; index += 1) {
+      const point = positions[index];
+      const pointerDistance = pointer.active ? Math.hypot(point.x - pointer.x, point.y - pointer.y) : 9999;
+      const boost = Math.max(0, 1 - pointerDistance / 230);
+      context.fillStyle = `rgba(126, 255, 0, ${0.4 + boost * 0.38})`;
+      context.beginPath();
+      context.arc(point.x, point.y, 1.2 + boost * 1.8, 0, Math.PI * 2);
+      context.fill();
+    }
+    context.restore();
+  }
+
+  function drawParticles(time) {
+    context.save();
+    context.globalCompositeOperation = "screen";
+    const activeParticles = simplified ? particles.slice(0, 76) : particles;
+    for (let index = 0; index < activeParticles.length; index += 1) {
+      const particle = activeParticles[index];
+      let x = ((particle.x * width) + Math.sin(time * 0.22 + particle.seed) * 18 + width) % width;
+      let y = ((particle.y * height) + Math.cos(time * 0.18 + particle.seed) * 16 + height) % height;
+      const pulse = 0.36 + Math.abs(Math.sin(time * 0.72 + particle.seed)) * 0.64;
+      let alpha = (simplified ? 0.19 : 0.32) + pulse * (simplified ? 0.16 : 0.25);
+
+      if (pointer.active && !simplified) {
+        const dx = x - pointer.x;
+        const dy = y - pointer.y;
+        const distance = Math.max(1, Math.hypot(dx, dy));
+        const radius = 230;
+        if (distance < radius) {
+          const force = (1 - distance / radius);
+          x += (dx / distance) * force * 42;
+          y += (dy / distance) * force * 42;
+          alpha += force * 0.35;
         }
       }
 
-      context.fillStyle = "rgba(126, 255, 0, 0.49)";
+      context.fillStyle = `rgba(126, 255, 0, ${alpha})`;
       context.beginPath();
-      context.arc(a.x, a.y, a.radius, 0, Math.PI * 2);
+      context.arc(x, y, particle.size + pulse * 0.9, 0, Math.PI * 2);
       context.fill();
     }
-
-    animationFrame = window.requestAnimationFrame(draw);
+    context.restore();
   }
 
-  window.addEventListener("resize", resize, { passive: true });
+  function draw() {
+    const time = reducedMotion ? 0 : (performance.now() - startedAt) / 1000;
+    drawStaticGlow();
+    drawNodeField(time);
+    drawParticles(time);
+
+    if (!reducedMotion) {
+      animationFrame = window.requestAnimationFrame(draw);
+    }
+  }
+
   window.addEventListener("pointermove", (event) => {
-    pointer.x = event.clientX;
-    pointer.y = event.clientY;
+    pointer.tx = event.clientX;
+    pointer.ty = event.clientY;
     pointer.active = true;
   }, { passive: true });
   window.addEventListener("pointerleave", () => {
     pointer.active = false;
   }, { passive: true });
+  window.addEventListener("resize", resize, { passive: true });
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
       window.cancelAnimationFrame(animationFrame);
@@ -292,7 +469,7 @@ function initHomeBackground() {
   });
 
   resize();
-  animationFrame = window.requestAnimationFrame(draw);
+  draw();
 
   window.addEventListener("pagehide", () => {
     window.cancelAnimationFrame(animationFrame);
@@ -390,6 +567,8 @@ function scheduleFaceOrbLoad() {
   }
   window.addEventListener("load", run, { once: true });
 }
+
+scheduleFaceOrbLoad();
 
 function setActiveOrbMode(mode) {
   const nextMode = ORB_MODES.includes(mode) ? mode : "idle";
@@ -633,5 +812,36 @@ filterButtons.forEach((button) => button.addEventListener("click", () => {
 }));
 
 if ("serviceWorker" in navigator && window.location.protocol !== "file:") {
-  navigator.serviceWorker.register("./sw.js").catch(() => {});
+  navigator.serviceWorker.getRegistrations?.()
+    .then((registrations) => Promise.all(registrations.map((registration) => registration.unregister())))
+    .catch(() => {});
 }
+
+if ("caches" in window) {
+  caches.keys()
+    .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+    .catch(() => {});
+}
+
+function initHomeReveal() {
+  const targets = Array.from(document.querySelectorAll(".home-section, .home-card, .home-hero-copy, .home-orb-panel"));
+  if (!targets.length) return;
+  const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  if (reducedMotion || !("IntersectionObserver" in window)) {
+    targets.forEach((target) => target.classList.add("is-visible"));
+    return;
+  }
+
+  document.body.classList.add("reveal-ready");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+
+  targets.forEach((target) => observer.observe(target));
+}
+
+initHomeReveal();

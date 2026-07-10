@@ -32,7 +32,6 @@ ROUTES = {
         "source": "journal-why-gpt-is-not-enough-for-complex-engineering-organisations.html",
         "slug": "journal/why-gpt-is-not-enough-for-complex-engineering-organisations",
         "seo": ("articleTitle", "articleDescription"),
-        "fallback_body": True,
     },
     "error_404": {"source": "404.html", "slug": "404", "seo": ("notFoundTitle", "notFoundDescription"), "sitemap": False},
     "offline": {"source": "offline.html", "slug": "offline", "seo": ("offlineTitle", "offlineDescription"), "sitemap": False},
@@ -281,8 +280,6 @@ def render_page(route_key: str, route: dict, lang: str, tr: dict) -> str:
     html = update_nav_labels(html, tr)
     html = localize_text(html, tr, route_key)
     html = set_title_and_meta(html, title, description, lang, slug)
-    if route.get("fallback_body"):
-        html = html.replace("<body", '<body data-i18n-fallback="article-body-en"', 1)
     html = inject_language_switcher(html, lang, slug, tr)
     if '<script src="/script.js"></script>' not in html and "journal.js" not in html:
         html = html.replace("</body>", '    <script src="/script.js"></script>\n  </body>', 1)

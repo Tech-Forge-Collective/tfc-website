@@ -53,6 +53,19 @@ REQUIRED_I18N_KEYS = [
     "strings.Technology approach",
     "strings.Completed features",
     "strings.Known issues",
+    "cta.exploreTechnology.full",
+    "cta.exploreTechnology.short",
+    "cta.exploreTechnology.aria",
+    "cta.seeProjectTile.full",
+    "cta.seeProjectTile.short",
+    "cta.seeProjectTile.aria",
+    "navShort.technology",
+    "navShort.updates",
+    "navShort.roadmap",
+    "navShort.engineeringDirector",
+    "navShort.engineeringReadiness",
+    "navShort.knowledgeGraph",
+    "navShort.projectileRoadmap",
 ]
 CRITICAL_ENGLISH_UI_STRINGS = [
     "Engineering technology for real industrial problems.",
@@ -99,6 +112,23 @@ CRITICAL_DUTCH_UI_STRINGS = [
     "Engineeringkennissystemen",
     "Praktische industriele AI",
 ]
+CRITICAL_ARTICLE_ENGLISH = [
+    "Language models are useful engineering assistants",
+    "Engineering organisations do not operate only through conversation",
+    "A general assistant can summarize a document",
+    "For an industrial example, a robot battery design",
+    "A single large language model can reason over text",
+    "Engineering intelligence should coordinate engineering work",
+    "When a deterministic method exists",
+    "This does not reduce the value of AI",
+    "Engineering organisations need to know where a claim came from",
+    "Traceability is especially important when projects are long lived",
+    "Engineering memory is the durable record",
+    "Engineering readiness is a way to make capability visible",
+    "ProjecTile is being built as an Engineering Operating System",
+    "AI augments engineering work",
+]
+INVALID_TRANSLATION_VALUES = ["TODO", "TBD", "undefined", "null", "[object Object]"]
 ROUTE_BY_SLUG = {
     "": "home",
     "technology": "technology",
@@ -172,6 +202,17 @@ def nested_key(data: dict, dotted: str) -> bool:
     return bool(current)
 
 
+def walk_values(value):
+    if isinstance(value, dict):
+        for child in value.values():
+            yield from walk_values(child)
+    elif isinstance(value, list):
+        for child in value:
+            yield from walk_values(child)
+    else:
+        yield str(value)
+
+
 def validate_homepage() -> None:
     html = (ROOT / "index.html").read_text(encoding="utf-8")
     script = (ROOT / "script.js").read_text(encoding="utf-8")
@@ -213,6 +254,9 @@ def validate_homepage() -> None:
     assert_contains(script, "requestIdleCallback", "script.js")
     if "createRadialGradient(pointer" in script:
         fail("script.js contains cursor-follow glow in the background")
+    sw = (ROOT / "sw.js").read_text(encoding="utf-8")
+    if "projectile-site-v13-i18n-language-fix" not in sw:
+        fail("sw.js cache version was not bumped for the multilingual language fix")
 
 
 def validate_technology_page() -> None:
@@ -321,6 +365,10 @@ def validate_i18n() -> None:
         for key in REQUIRED_I18N_KEYS:
             if not nested_key(data, key):
                 fail(f"{path.relative_to(ROOT)} missing translation key {key}")
+        for value in walk_values(data):
+            for invalid in INVALID_TRANSLATION_VALUES:
+                if invalid in value:
+                    fail(f"{path.relative_to(ROOT)} contains invalid translation placeholder: {invalid}")
 
         for route in [*I18N_ROUTES, *I18N_UTILITY_ROUTES]:
             page = ROOT / lang / route / "index.html"
@@ -350,6 +398,12 @@ def validate_i18n() -> None:
                 for english in CRITICAL_ENGLISH_UI_STRINGS:
                     if english in html:
                         fail(f"{page.relative_to(ROOT)} contains untranslated UI string: {english}")
+                if route == "journal/why-gpt-is-not-enough-for-complex-engineering-organisations":
+                    if "data-i18n-fallback" in html:
+                        fail(f"{page.relative_to(ROOT)} still marks article body as fallback content")
+                    for phrase in CRITICAL_ARTICLE_ENGLISH:
+                        if phrase in html:
+                            fail(f"{page.relative_to(ROOT)} contains untranslated article body phrase: {phrase}")
             if lang not in {"en", "nl"}:
                 for dutch in CRITICAL_DUTCH_UI_STRINGS:
                     if dutch in html:

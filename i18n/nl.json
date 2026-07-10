@@ -6,8 +6,8 @@
     "nl": "Nederlands",
     "pl": "Polski",
     "de": "Deutsch",
-    "es": "Espa\u00f1ol",
-    "fr": "Fran\u00e7ais",
+    "es": "Español",
+    "fr": "Français",
     "button": "Taal",
     "open": "Taalmenu openen",
     "close": "Taalmenu sluiten"
@@ -24,10 +24,10 @@
     "rss": "RSS"
   },
   "seo": {
-    "homeTitle": "Tech Forge Collective | Engineeringtechnologie voor industri\u00eble problemen",
-    "homeDescription": "Tech Forge Collective bouwt praktische software, AI, robotica, automatisering en kennissystemen voor industri\u00eble omgevingen.",
+    "homeTitle": "Tech Forge Collective | Engineeringtechnologie voor industriële problemen",
+    "homeDescription": "Tech Forge Collective bouwt praktische software, AI, robotica, automatisering en kennissystemen voor industriële omgevingen.",
     "technologyTitle": "Technologie | Tech Forge Collective",
-    "technologyDescription": "Ontdek de TFC-technologielijnen achter industri\u00eble AI, robotica, automatisering, software, engineering intelligence en kennissystemen.",
+    "technologyDescription": "Ontdek de TFC-technologielijnen achter industriële AI, robotica, automatisering, software, engineering intelligence en kennissystemen.",
     "journalTitle": "Engineering Journal | Tech Forge Collective",
     "journalDescription": "Engineeringonderzoek, ontwerpbeslissingen en technische notities van Tech Forge Collective.",
     "notesTitle": "Engineering Notes | Tech Forge Collective",
@@ -47,13 +47,13 @@
   },
   "hero": {
     "eyebrow": "Tech Forge Collective",
-    "headline": "Engineeringtechnologie voor echte industri\u00eble problemen.",
-    "ctaPrimary": "Ontdek onze technologie",
+    "headline": "Engineeringtechnologie voor echte industriële problemen.",
+    "ctaPrimary": "Bekijk technologie",
     "ctaSecondary": "Bekijk ProjecTile"
   },
   "technologyLanes": {
     "eyebrow": "Technologielijnen",
-    "headline": "Praktische industri\u00eble technologie, gebouwd op engineering."
+    "headline": "Praktische industriële technologie, gebouwd op engineering."
   },
   "principles": {
     "title": "Engineeringprincipes"
@@ -105,7 +105,7 @@
     "Skip to content": "Naar inhoud springen",
     "Robotics. Software. AI.": "Robotica. Software. AI.",
     "RSS": "RSS",
-    "Engineering technology for real industrial problems.": "Engineeringtechnologie voor echte industri\u00eble problemen.",
+    "Engineering technology for real industrial problems.": "Engineeringtechnologie voor echte industriële problemen.",
     "Tech Forge Collective builds practical software, AI, robotics, and automation systems for engineering environments. Our work combines deterministic engineering methods with modern AI to create tools that are useful, traceable, and built for the real world.": "Tech Forge Collective bouwt praktische software, AI, robotica en automatiseringssystemen voor engineeringomgevingen. Ons werk combineert deterministische engineeringmethoden met moderne AI om tools te maken die bruikbaar, traceerbaar en realistisch zijn.",
     "ProjecTile is our flagship Engineering Operating System: a platform for engineering workflows, knowledge, evidence, reports, and readiness.": "ProjecTile is ons flagship Engineering Operating System: een platform voor engineeringworkflows, kennis, bewijs, rapporten en readiness.",
     "Loading orb": "Orb laden",
@@ -127,7 +127,7 @@
     "Clarity before complexity.": "Duidelijkheid voor complexiteit.",
     "ProjecTile will connect project files, engineering references, lessons learned, and team knowledge into a searchable intelligence layer.": "ProjecTile verbindt projectbestanden, engineeringreferenties, lessons learned en teamkennis in een doorzoekbare intelligencelaag.",
     "Your knowledge should not disappear between projects.": "Kennis mag niet verdwijnen tussen projecten.",
-    "Practical engineering technology for industrial environments": "Praktische engineeringtechnologie voor industri\u00eble omgevingen",
+    "Practical engineering technology for industrial environments": "Praktische engineeringtechnologie voor industriële omgevingen",
     "Technology approach": "Technologieaanpak",
     "Industrial AI": "Industriele AI",
     "Robotics": "Robotica",
@@ -243,6 +243,70 @@
     "Creates readable engineering deliverables with inputs, assumptions, calculations, risks, QA review, and sources.": "Maakt leesbare engineeringdeliverables met inputs, aannames, berekeningen, risico?s, QA-review en bronnen.",
     "Capability path": "Capability-pad",
     "Latest development signal": "Laatste ontwikkelingssignaal",
-    "Current public work is focused on navigation clarity, ProjecTile product separation, roadmap presentation, structured updates, and production-grade website validation.": "Het huidige publieke werk richt zich op navigatiehelderheid, ProjecTile-productscheiding, roadmap-presentatie, gestructureerde updates en websitevalidatie op productieniveau."
+    "Current public work is focused on navigation clarity, ProjecTile product separation, roadmap presentation, structured updates, and production-grade website validation.": "Het huidige publieke werk richt zich op navigatiehelderheid, ProjecTile-productscheiding, roadmap-presentatie, gestructureerde updates en websitevalidatie op productieniveau.",
+    "Why GPT Is Not Enough for Complex Engineering Organisations": "Waarom GPT niet genoeg is voor complexe engineeringorganisaties",
+    "A TFC engineering article on why complex engineering organisations need more than chat.": "Een TFC-engineeringartikel over waarom complexe engineeringorganisaties meer nodig hebben dan chat.",
+    "Engineering organisations need deterministic calculations, traceability, standards, evidence, decisions, and long-term engineering memory alongside AI.": "Engineeringorganisaties hebben naast AI deterministische berekeningen, traceerbaarheid, normen, bewijs, besluiten en langetermijn-engineeringgeheugen nodig.",
+    "Language models are useful engineering assistants, but complex engineering organisations need structured systems for calculation, evidence, memory, standards, decisions, and governance.": "Taalmodellen zijn nuttige engineeringassistenten, maar complexe engineeringorganisaties hebben gestructureerde systemen nodig voor berekening, bewijs, geheugen, normen, besluiten en governance.",
+    "Author": "Auteur",
+    "Published": "Gepubliceerd",
+    "Updated": "Bijgewerkt",
+    "Reading time": "Leestijd",
+    "12 min": "12 min",
+    "Tags": "Tags",
+    "Contents": "Inhoud",
+    "Engineering is not general knowledge work": "Engineering is geen algemeen kenniswerk",
+    "Why one model cannot own complexity": "Waarom een model complexiteit niet kan dragen",
+    "Deterministic calculations still matter": "Deterministische berekeningen blijven belangrijk",
+    "Traceability, standards, and evidence": "Traceerbaarheid, normen en bewijs",
+    "Engineering memory and Engineering DNA": "Engineeringgeheugen en Engineering DNA",
+    "Why readiness matters": "Waarom readiness belangrijk is",
+    "Why Engineering Readiness matters": "Waarom Engineering Readiness belangrijk is",
+    "Why ProjecTile combines systems with AI": "Waarom ProjecTile systemen combineert met AI",
+    "Engineering organisations do not operate only through conversation. They work through requirements, specifications, drawings, calculations, inspection records, risk assessments, vendor documentation, standards, commissioning notes, operating experience, and formal decisions.": "Engineeringorganisaties werken niet alleen via gesprekken. Ze werken met eisen, specificaties, tekeningen, berekeningen, inspectieregisters, risicobeoordelingen, leveranciersdocumentatie, normen, commissioning-notities, operationele ervaring en formele besluiten.",
+    "A general assistant can summarize a document or draft an explanation. That is useful, but it does not create an engineering operating model. Engineering work depends on knowing what has been verified, what is assumed, what is missing, what standard applies, and what decision was made under which constraints.": "Een algemene assistent kan een document samenvatten of een uitleg opstellen. Dat is nuttig, maar het vormt geen engineering operating model. Engineeringwerk hangt af van weten wat is geverifieerd, wat is aangenomen, wat ontbreekt, welke norm geldt en welk besluit onder welke randvoorwaarden is genomen.",
+    "For an industrial example, a robot battery design is not only a runtime question. It touches power balance, fuse selection, duty cycle, temperature, charging, mission profile, maintenance access, failure modes, and operational risk. A chat answer may help start the work, but the engineering system must preserve the evidence chain.": "Als industrieel voorbeeld is een robotbatterijontwerp niet alleen een runtime-vraag. Het raakt vermogensbalans, zekeringselectie, duty cycle, temperatuur, laden, missieprofiel, onderhoudstoegang, faalmodi en operationeel risico. Een chatantwoord kan helpen om te starten, maar het engineeringsysteem moet de bewijsketen bewaren.",
+    "A single large language model can reason over text, but it does not automatically become a project memory, calculation engine, standards register, approval system, or engineering quality process. Complex engineering needs separation of responsibilities.": "Een enkel groot taalmodel kan over tekst redeneren, maar wordt niet automatisch projectgeheugen, rekenengine, normenregister, goedkeuringssysteem of engineeringkwaliteitsproces. Complexe engineering vraagt scheiding van verantwoordelijkheden.",
+    "In ProjecTile, the target pattern is not \"ask one model everything.\" The pattern is closer to an Engineering Director coordinating specialists, deterministic tools, knowledge packs, reports, source citations, and quality review.": "In ProjecTile is het doelpatroon niet \"vraag alles aan een model\". Het patroon lijkt meer op een Engineering Director die specialisten, deterministische tools, knowledge packs, rapporten, broncitaten en kwaliteitsreview coordineert.",
+    "Engineering intelligence should coordinate engineering work. It should not hide uncertainty behind fluent language.": "Engineering intelligence moet engineeringwerk coordineren. Het mag onzekerheid niet verbergen achter vloeiende taal.",
+    "When a deterministic method exists, the platform should use it. A battery runtime estimate, DC power balance, voltage drop, torque conversion, or OEE calculation should not be invented by a probabilistic model each time the question is asked.": "Wanneer een deterministische methode bestaat, moet het platform die gebruiken. Een batterij-runtime-inschatting, DC-vermogensbalans, spanningsval, koppelconversie of OEE-berekening mag niet telkens opnieuw door een probabilistisch model worden verzonnen.",
+    "This does not reduce the value of AI. It makes AI safer and more useful. The model can identify missing inputs, explain trade-offs, and assemble the report, while the calculation remains auditable.": "Dit vermindert de waarde van AI niet. Het maakt AI veiliger en nuttiger. Het model kan ontbrekende invoer herkennen, trade-offs uitleggen en het rapport samenstellen, terwijl de berekening auditeerbaar blijft.",
+    "AI augments engineering work. Engineering governance still requires systems.": "AI versterkt engineeringwerk. Engineering governance vereist nog steeds systemen.",
+    "Engineering organisations need to know where a claim came from. Was it from a standard, a manual, a calculation, a vendor drawing, a test, a site observation, or an engineer's judgement? Without that distinction, engineering knowledge becomes difficult to trust.": "Engineeringorganisaties moeten weten waar een claim vandaan komt. Kwam die uit een norm, handleiding, berekening, leverancierstekening, test, site-observatie of het oordeel van een engineer? Zonder dat onderscheid wordt engineeringkennis moeilijk te vertrouwen.",
+    "Traceability is especially important when projects are long lived. A decision made during concept design may affect procurement, commissioning, maintenance, and future upgrades. ProjecTile treats sources, reports, decisions, and calculations as evidence objects that can be linked and reviewed.": "Traceerbaarheid is extra belangrijk bij langlopende projecten. Een besluit tijdens conceptontwerp kan inkoop, commissioning, onderhoud en toekomstige upgrades beinvloeden. ProjecTile behandelt bronnen, rapporten, besluiten en berekeningen als bewijsobjecten die gekoppeld en beoordeeld kunnen worden.",
+    "Engineering memory is the durable record of what a team learned. Engineering DNA is the promoted layer: reusable lessons, decisions, patterns, workflows, templates, and capability evidence that should survive beyond one project.": "Engineeringgeheugen is het duurzame verslag van wat een team heeft geleerd. Engineering DNA is de gepromoveerde laag: herbruikbare lessen, besluiten, patronen, workflows, templates en capability-bewijs dat langer moet meegaan dan een project.",
+    "This matters because organisations repeatedly lose knowledge when documents are scattered, people move roles, or project context disappears. A model can answer a question today, but a system must preserve what was learned so the next project starts from a stronger baseline.": "Dit is belangrijk omdat organisaties herhaaldelijk kennis verliezen wanneer documenten verspreid raken, mensen van rol veranderen of projectcontext verdwijnt. Een model kan vandaag een vraag beantwoorden, maar een systeem moet bewaren wat is geleerd zodat het volgende project vanaf een sterkere basis start.",
+    "Engineering readiness is a way to make capability visible. It asks whether the organisation has implemented tools, validation, documentation, evidence, workflow integration, and production checks. It separates \"we built a feature\" from \"we can rely on this capability.\"": "Engineering readiness maakt capability zichtbaar. Het vraagt of de organisatie tools, validatie, documentatie, bewijs, workflow-integratie en productiechecks heeft geimplementeerd. Het scheidt \"we hebben een feature gebouwd\" van \"we kunnen op deze capability vertrouwen\".",
+    "For ProjecTile, readiness also prevents false confidence. A feature with limited tests, weak evidence, or poor citations should not be treated the same as a validated engineering workflow with reports, deterministic calculations, quality review, and source traceability.": "Voor ProjecTile voorkomt readiness ook vals vertrouwen. Een feature met beperkte tests, zwak bewijs of slechte citaties mag niet hetzelfde worden behandeld als een gevalideerde engineeringworkflow met rapporten, deterministische berekeningen, kwaliteitsreview en brontraceerbaarheid.",
+    "ProjecTile is being built as an Engineering Operating System. The goal is to combine AI assistance with structured engineering systems: deterministic toolboxes, knowledge graph relationships, Engineering DNA, readiness scoring, reports, and review workflows.": "ProjecTile wordt gebouwd als Engineering Operating System. Het doel is AI-assistentie te combineren met gestructureerde engineeringsystemen: deterministische toolboxes, knowledge graph-relaties, Engineering DNA, readiness-scoring, rapporten en reviewworkflows.",
+    "The point is not to replace engineers. Engineers remain responsible for engineering decisions. The platform should help them find context, structure reasoning, preserve evidence, identify missing information, and produce reviewable deliverables.": "Het doel is niet engineers te vervangen. Engineers blijven verantwoordelijk voor engineeringbesluiten. Het platform moet hen helpen context te vinden, redenering te structureren, bewijs te bewaren, ontbrekende informatie te herkennen en reviewbare deliverables te produceren.",
+    "Related": "Gerelateerd",
+    "Why deterministic engineering calculations still matter in the age of AI": "Waarom deterministische engineeringberekeningen belangrijk blijven in het tijdperk van AI",
+    "Engineering Intelligence technology principles": "Technologieprincipes voor Engineering Intelligence",
+    "Previous: Engineering Journal": "Vorige: Engineering Journal",
+    "Next: Deterministic calculations": "Volgende: deterministische berekeningen",
+    "Home": "Home",
+    "Why GPT Is Not Enough": "Waarom GPT niet genoeg is"
+  },
+  "cta": {
+    "exploreTechnology": {
+      "full": "Bekijk technologie",
+      "short": "Technologie",
+      "aria": "Bekijk de technologie van Tech Forge Collective"
+    },
+    "seeProjectTile": {
+      "full": "Bekijk ProjecTile",
+      "short": "ProjecTile",
+      "aria": "Bekijk ProjecTile"
+    }
+  },
+  "navShort": {
+    "technology": "Technologie",
+    "updates": "Updates",
+    "roadmap": "Roadmap",
+    "engineeringDirector": "Director",
+    "engineeringReadiness": "Readiness",
+    "knowledgeGraph": "Graph",
+    "projectileRoadmap": "Roadmap"
   }
 }

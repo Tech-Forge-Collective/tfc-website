@@ -6,8 +6,8 @@
     "nl": "Nederlands",
     "pl": "Polski",
     "de": "Deutsch",
-    "es": "Espa\u00f1ol",
-    "fr": "Fran\u00e7ais",
+    "es": "Español",
+    "fr": "Français",
     "button": "Language",
     "open": "Open language menu",
     "close": "Close language menu"
@@ -220,5 +220,26 @@
     "Capability path": "Capability path",
     "Latest development signal": "Latest development signal",
     "Current public work is focused on navigation clarity, ProjecTile product separation, roadmap presentation, structured updates, and production-grade website validation.": "Current public work is focused on navigation clarity, ProjecTile product separation, roadmap presentation, structured updates, and production-grade website validation."
+  },
+  "cta": {
+    "exploreTechnology": {
+      "full": "Explore our technology",
+      "short": "Technology",
+      "aria": "Explore Tech Forge Collective technology"
+    },
+    "seeProjectTile": {
+      "full": "See ProjecTile",
+      "short": "ProjecTile",
+      "aria": "See ProjecTile"
+    }
+  },
+  "navShort": {
+    "technology": "Technology",
+    "updates": "Updates",
+    "roadmap": "Roadmap",
+    "engineeringDirector": "Director",
+    "engineeringReadiness": "Readiness",
+    "knowledgeGraph": "Graph",
+    "projectileRoadmap": "Roadmap"
   }
 }
